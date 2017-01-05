@@ -47,6 +47,23 @@ TEST_F(SoundexEncodingTest, IgnoresNonAlphabetics) {
     ASSERT_EQ(encoded, "A000");
 }
 
+/*---------------------------------------------------------------------------*\
+|
+\*---------------------------------------------------------------------------*/
+TEST_F(SoundexEncodingTest, LimitsLengthToFourCharacters) {
+
+    auto encoded = mSoundex.encode("Evangelista");
+    ASSERT_EQ(encoded.length(), 4);
+}
+
+/*---------------------------------------------------------------------------*\
+|
+\*---------------------------------------------------------------------------*/
+TEST_F(SoundexEncodingTest, IgnoresVowelLikeLetters) {
+
+    auto encoded = mSoundex.encode("Baeiouhycdl");
+    ASSERT_EQ(encoded, "B234");
+}
 
 /*---------------------------------------------------------------------------*\
 |

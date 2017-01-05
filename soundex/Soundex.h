@@ -11,9 +11,10 @@
 #include <unordered_map>
 
 class Soundex {
-    const int cMinEncodedLen{4};
+    const int cMaxEncodedLength{4};
 public:
 
+    //!
     std::string encode(const std::string& word)
     {
         std::string disemvoweled = disemvowel(word);
@@ -24,14 +25,19 @@ public:
             if (!encoded.empty()) {
                 ss << encoded;
             }
+
+            if (isComplete(ss.str())) {
+                break;
+            }
         }
 
-        std::string encoded = (ss.str().length() < cMinEncodedLen ? zeroPad(ss.str()) : ss.str());
+        std::string encoded = (ss.str().length() < cMaxEncodedLength ? zeroPad(ss.str()) : ss.str());
         return encoded;
     }
 
 private:
 
+    //!
     std::string disemvowel(const std::string& word)
     {
         const std::map<char, char> discards = {
@@ -49,6 +55,7 @@ private:
         return std::string(ss.str());
     }
 
+    //!
     std::string encodedDigit(char digit)
     {
         const std::unordered_map<char, std::string> encodings = {
@@ -66,14 +73,20 @@ private:
 
         return std::string();
     }
+    
+    //!
+    bool isComplete(const std::string& encoded)
+    {
+        return encoded.length() == cMaxEncodedLength;
+    }
 
+    //!
     std::string zeroPad(const std::string& word)
     {
         std::stringstream ss;
         ss << std::setfill('0') << std::setw(4) << std::left << word;
         return std::string(ss.str());
     }
-
 };
 
 #endif //SOUNDEX_SOUNDEX_H
