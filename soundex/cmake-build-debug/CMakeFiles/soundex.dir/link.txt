@@ -1,0 +1,1 @@
+/usr/bin/c++   -g   CMakeFiles/soundex.dir/SoundexTest.cpp.o  -o soundex -lgtest -lpthread 
