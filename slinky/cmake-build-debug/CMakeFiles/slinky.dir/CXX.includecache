@@ -1,0 +1,20 @@
+#IncludeRegexLine: ^[ 	]*#[ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/norme/Projects/tdd-tutorials/slinky/Slinky.hpp
+vector
+-
+
+/home/norme/Projects/tdd-tutorials/slinky/SlinkyTest.cpp
+Slinky.hpp
+/home/norme/Projects/tdd-tutorials/slinky/Slinky.hpp
+gmock/gmock.h
+-
+string
+-
+

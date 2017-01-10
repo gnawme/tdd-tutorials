@@ -1,0 +1,1 @@
+/usr/bin/c++   -g   CMakeFiles/slinky.dir/SlinkyTest.cpp.o  -o slinky -lgtest -lpthread 
