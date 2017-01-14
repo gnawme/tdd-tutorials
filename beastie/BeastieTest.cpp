@@ -44,6 +44,7 @@ public:
 
     Beastie<int> beastie;
     std::vector<int> fibos;
+    std::vector<int> simple{7, 1, 0, 3, 2, 5, 4, 6, 9, 8, 10};
 
 };
 
@@ -63,8 +64,48 @@ TEST_F(BeastieTest, TreeShouldNotBeEmptyAfterMultipleInsertions) {
     for (auto value : fibos) {
         beastie.Insert(value);
     }
-
     EXPECT_FALSE(beastie.IsEmpty());
+}
+
+//! \test   SimpleInorderTraversalShouldYieldExpected
+TEST_F(BeastieTest, SimpleInorderTraversalShouldYieldExpected) {
+    for (auto value : simple) {
+        beastie.Insert(value);
+    }
+
+    beastie.TraverseInorder(beastie.GetRoot());
+
+    std::vector<int> expected{0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
+    std::vector<int> compare = beastie.GetTree();
+    std::cout << std::endl;
+    EXPECT_THAT(compare, ::testing::ContainerEq(expected));
+}
+
+//! \test   SimplePreorderTraversalShouldYieldExpected
+TEST_F(BeastieTest, SimplePreorderTraversalShouldYieldExpected) {
+    for (auto value : simple) {
+        beastie.Insert(value);
+    }
+
+    beastie.TraversePreorder(beastie.GetRoot());
+
+    std::vector<int> expected{7, 1, 0, 3, 2, 5, 4, 6, 9, 8, 10};
+    std::vector<int> compare = beastie.GetTree();
+    std::cout << std::endl;
+    EXPECT_THAT(compare, ::testing::ContainerEq(expected));
+}
+
+//! \test   SimplePostorderTraversalShouldYieldExpected
+TEST_F(BeastieTest, SimplePostorderTraversalShouldYieldExpected) {
+    for (auto value : simple) {
+        beastie.Insert(value);
+    }
+
+    beastie.TraversePostorder(beastie.GetRoot());
+
+    std::vector<int> expected{0, 2, 4, 6, 5, 3, 1, 8, 10, 9, 7};
+    std::vector<int> compare = beastie.GetTree();
+    EXPECT_THAT(compare, ::testing::ContainerEq(expected));
 }
 
 //! \fn     main

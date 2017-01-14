@@ -126,16 +126,22 @@ public:
         if (!IsEmpty()) {
             ListNode<DataT>* tail = nullptr;
             ListNode<DataT>* previous = nullptr;
+
             ListNode<DataT>* node = m_head;
 
             while (node != nullptr) {
                 ListNode<DataT>* next = node->next;
 
+                // We've reached the end of the list; store the tail
                 if (next == nullptr) {
                     tail = node;
                 }
 
+                // If it's not the first node,
+                // reverse its next pointer to its predecessor
                 node->next = (previous == m_head) ? nullptr : previous;
+
+                // Move along
                 previous = node;
                 node = next;
             }

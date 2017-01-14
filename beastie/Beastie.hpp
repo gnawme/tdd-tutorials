@@ -5,6 +5,7 @@
 #define BEASTIE_BEASTIE_HPP
 
 #include <iostream>
+#include <vector>
 
 //! \class  BSTNode
 template<typename DataT>
@@ -32,31 +33,23 @@ public:
     : m_root_node(nullptr)
     {}
 
+    BSTNode<DataT>* GetRoot()
+    {
+        return m_root_node;
+    }
+
+    std::vector<DataT> GetTree()
+    {
+        return m_tree;
+    }
+
     //! \fn     Insert
     BSTNode<DataT>* Insert(DataT value) {
         if (m_root_node == nullptr) {
-            m_root_node = GetNewNode(value);
+            m_root_node = new BSTNode<DataT>(value);
             return m_root_node;
         } else {
-            BSTNode<DataT>* current = m_root_node;
-            BSTNode<DataT>* parent = nullptr;
-
-            do {
-                if (value == current->data) {
-                    break;
-                } else if (value < current->data) {
-                    parent = current;
-                    current = current->left_child;
-                } else if (value > current->data){
-                    parent = current;
-                    current = current->right_child;
-                }
-
-                if (current == nullptr) {
-                    current = GetNewNode(value);
-                    return current;
-                }
-            } while(true);
+            return Insert(m_root_node, value);
         }
     }
 
@@ -66,14 +59,89 @@ public:
         return (m_root_node == nullptr);
     }
 
-private:
-    //! \fn     GetNewNode
-    BSTNode<DataT>* GetNewNode(DataT value)
+    //! \fn     TraverseInorder
+    //! \brief  Inorder traversal: left-root-right
+    //! \note   Use inorder to output nodes in a non-decreasing order
+    void TraverseInorder(BSTNode<DataT>* root)
     {
-        return new BSTNode<DataT>(value);
+        if (root == nullptr) {
+            return;
+        }
+
+        if (root == m_root_node) {
+            m_tree.clear();
+        }
+
+        TraverseInorder(root->left_child);
+        Visit(root);
+        TraverseInorder(root->right_child);
+    }
+
+    //! \fn     TraversePostorder
+    //! \brief  Postorder traversal: left-right-root
+    //! \note   Use postorder to delete the tree
+    void TraversePostorder(BSTNode<DataT>* root)
+    {
+        if (root == nullptr) {
+            return;
+        }
+
+        if (root == m_root_node) {
+            m_tree.clear();
+        }
+
+        TraversePostorder(root->left_child);
+        TraversePostorder(root->right_child);
+        Visit(root);
+    }
+
+    //! \fn     TraversePreorder
+    //! \brief  Preorder traversal: root-left-right
+    //! \note   Use preorder to make a copy of the tree
+    void TraversePreorder(BSTNode<DataT>* root)
+    {
+        if (root == nullptr) {
+            return;
+        }
+
+        if (root == m_root_node) {
+            m_tree.clear();
+        }
+
+        Visit(root);
+        TraversePreorder(root->left_child);
+        TraversePreorder(root->right_child);
+    }
+
+private:
+    //! \fn     Insert
+    BSTNode<DataT>* Insert(BSTNode<DataT>* root, DataT value)
+    {
+        if (value < root->data) {
+            if (root->left_child == nullptr) {
+                root->left_child = new BSTNode<DataT>(value);
+                return root->left_child;
+            } else {
+                Insert(root->left_child, value);
+            }
+        } else {
+            if (root->right_child == nullptr) {
+                root->right_child = new BSTNode<DataT>(value);
+                return root->right_child;
+            } else {
+                Insert(root->right_child, value);
+            }
+        }
+    }
+
+    //! \fn     Visit
+    void Visit(BSTNode<DataT>* root)
+    {
+        m_tree.push_back(root->data);
     }
 
     BSTNode<DataT>* m_root_node;
+    std::vector<DataT> m_tree;
 };
 
 #endif //BEASTIE_BEASTIE_HPP
