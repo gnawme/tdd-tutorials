@@ -1,0 +1,24 @@
+#IncludeRegexLine: ^[ 	]*#[ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/norme/Projects/tdd-tutorials/miscellar/main.cpp
+algorithm
+-
+iostream
+-
+string
+-
+map
+-
+set
+-
+vector
+-
+gmock/gmock.h
+-
+

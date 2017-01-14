@@ -1,0 +1,1 @@
+/usr/bin/c++   -Wno-write-strings -g   CMakeFiles/miscellar.dir/main.cpp.o  -o miscellar -lgtest -lpthread 

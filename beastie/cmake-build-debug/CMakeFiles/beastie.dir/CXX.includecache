@@ -1,0 +1,24 @@
+#IncludeRegexLine: ^[ 	]*#[ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/norme/Projects/tdd-tutorials/beastie/Beastie.hpp
+iostream
+-
+
+/home/norme/Projects/tdd-tutorials/beastie/BeastieTest.cpp
+Beastie.hpp
+/home/norme/Projects/tdd-tutorials/beastie/Beastie.hpp
+gmock/gmock.h
+-
+algorithm
+-
+iostream
+-
+vector
+-
+
