@@ -12,18 +12,25 @@ template<typename DataT>
 struct BSTNode
 {
     BSTNode(DataT value)
-    : data(value)
+    : key(value)
     , left_child(nullptr)
     , right_child(nullptr)
     {}
 
-    DataT           data;
+    ~BSTNode()
+    {
+        left_child = nullptr;
+        right_child = nullptr;
+    }
+
+    DataT           key;
     BSTNode<DataT>* left_child;
     BSTNode<DataT>* right_child;
 };
 
 //! \class  Beastie
 //! \brief  Canonical binary search tree implementation
+//! \see    https://www.cs.rochester.edu/~gildea/csc282/slides/C12-bst.pdf
 template<typename DataT>
 class Beastie {
 public:
@@ -32,6 +39,13 @@ public:
     Beastie()
     : m_root_node(nullptr)
     {}
+
+    //! \fn
+    void Clear()
+    {
+        DoClear(m_root_node);
+        m_root_node = nullptr;
+    }
 
     BSTNode<DataT>* GetRoot()
     {
@@ -44,7 +58,8 @@ public:
     }
 
     //! \fn     Insert
-    BSTNode<DataT>* Insert(DataT value) {
+    BSTNode<DataT>* Insert(DataT value)
+    {
         if (m_root_node == nullptr) {
             m_root_node = new BSTNode<DataT>(value);
             return m_root_node;
@@ -114,10 +129,26 @@ public:
     }
 
 private:
+    //! \fn     DoClear
+    void DoClear(BSTNode<DataT>* root)
+    {
+        if (root == nullptr) {
+            return;
+        }
+
+        if (root == m_root_node) {
+            m_tree.clear();
+        }
+
+        DoClear(root->left_child);
+        DoClear(root->right_child);
+        delete root;
+    }
+
     //! \fn     Insert
     BSTNode<DataT>* Insert(BSTNode<DataT>* root, DataT value)
     {
-        if (value < root->data) {
+        if (value < root->key) {
             if (root->left_child == nullptr) {
                 root->left_child = new BSTNode<DataT>(value);
                 return root->left_child;
@@ -137,7 +168,7 @@ private:
     //! \fn     Visit
     void Visit(BSTNode<DataT>* root)
     {
-        m_tree.push_back(root->data);
+        m_tree.push_back(root->key);
     }
 
     BSTNode<DataT>* m_root_node;

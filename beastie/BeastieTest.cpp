@@ -108,6 +108,16 @@ TEST_F(BeastieTest, SimplePostorderTraversalShouldYieldExpected) {
     EXPECT_THAT(compare, ::testing::ContainerEq(expected));
 }
 
+//! \test   TreeShouldBeEmptyAfterClear
+TEST_F(BeastieTest, TreeShouldBeEmptyAfterClear) {
+    for (auto value : simple) {
+        beastie.Insert(value);
+    }
+
+    beastie.Clear();
+    EXPECT_TRUE(beastie.IsEmpty());
+}
+
 //! \fn     main
 int main(int argc, char** argv) {
     testing::InitGoogleTest(&argc, argv);

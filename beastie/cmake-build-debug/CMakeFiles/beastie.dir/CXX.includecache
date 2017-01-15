@@ -9,6 +9,8 @@
 /home/norme/Projects/tdd-tutorials/beastie/Beastie.hpp
 iostream
 -
+vector
+-
 
 /home/norme/Projects/tdd-tutorials/beastie/BeastieTest.cpp
 Beastie.hpp
