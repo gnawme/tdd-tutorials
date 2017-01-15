@@ -74,6 +74,12 @@ public:
         return (m_root_node == nullptr);
     }
 
+    //! \fn     Search
+    BSTNode<DataT>* Search(DataT key)
+    {
+        return Search(m_root_node, key);
+    }
+
     //! \fn     TraverseInorder
     //! \brief  Inorder traversal: left-root-right
     //! \note   Use inorder to output nodes in a non-decreasing order
@@ -162,6 +168,22 @@ private:
             } else {
                 Insert(root->right_child, value);
             }
+        }
+    }
+
+    //! \fn     Search
+    BSTNode<DataT>* Search(BSTNode<DataT>* root, DataT key)
+    {
+        if (root == nullptr) {
+            return nullptr;
+        }
+
+        if (key == root->key) {
+            return root;
+        } else if (key < root->key) {
+            return Search(root->left_child, key);
+        } else {
+            return Search(root->right_child, key);
         }
     }
 

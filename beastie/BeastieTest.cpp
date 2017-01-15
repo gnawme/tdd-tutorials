@@ -118,6 +118,27 @@ TEST_F(BeastieTest, TreeShouldBeEmptyAfterClear) {
     EXPECT_TRUE(beastie.IsEmpty());
 }
 
+//! \test   SearchForValueInTreeShouldReturnNode
+TEST_F(BeastieTest, SearchForValueInTreeShouldReturnNode) {
+    for (auto value : fibos) {
+        beastie.Insert(value);
+    }
+
+    BSTNode<int>* node = beastie.Search(55);
+    ASSERT_TRUE(node != nullptr);
+}
+
+//! \test   SearchForValueNotInTreeShouldReturnNull
+TEST_F(BeastieTest, SearchForValueNotInTreeShouldReturnNull) {
+    for (auto value : fibos) {
+        beastie.Insert(value);
+    }
+
+    BSTNode<int>* node = beastie.Search(42);
+    ASSERT_TRUE(node == nullptr);
+
+}
+
 //! \fn     main
 int main(int argc, char** argv) {
     testing::InitGoogleTest(&argc, argv);
