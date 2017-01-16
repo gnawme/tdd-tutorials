@@ -47,6 +47,13 @@ public:
         m_root_node = nullptr;
     }
 
+    //! \fn     Depth
+    int Depth()
+    {
+        int depth = 0;
+        return Depth(m_root_node, depth);
+    }
+
     BSTNode<DataT>* GetRoot()
     {
         return m_root_node;
@@ -135,6 +142,23 @@ public:
     }
 
 private:
+    //! \fn     Depth
+    int Depth(BSTNode<DataT>* root, int depth)
+    {
+        int left_depth = depth;
+        int right_depth = depth;
+
+        if (root->left_child != nullptr) {
+            left_depth = Depth(root->left_child, depth + 1);
+        }
+
+        if (root->right_child != nullptr) {
+            right_depth = Depth(root->right_child, depth + 1);
+        }
+
+        return (left_depth > right_depth) ? left_depth : right_depth;
+    }
+
     //! \fn     DoClear
     void DoClear(BSTNode<DataT>* root)
     {

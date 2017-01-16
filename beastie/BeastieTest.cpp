@@ -136,7 +136,17 @@ TEST_F(BeastieTest, SearchForValueNotInTreeShouldReturnNull) {
 
     BSTNode<int>* node = beastie.Search(42);
     ASSERT_TRUE(node == nullptr);
+}
 
+//! \test   DepthOfTreeShouldBeGreaterThanOne
+TEST_F(BeastieTest, DepthOfTreeShouldBeGreaterThanOne) {
+    for (auto value : simple) {
+        beastie.Insert(value);
+    }
+
+    int depth = beastie.Depth();
+    
+    ASSERT_TRUE(depth > 0);
 }
 
 //! \fn     main
