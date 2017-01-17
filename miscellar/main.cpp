@@ -8,6 +8,21 @@
 
 #include <gmock/gmock.h>
 
+//! \fn     AckermannFn
+//! \brief  Computes Ackermann's function recursively
+int AckermannFn(int m, int n)
+{
+    if (m == 0) {
+        return n + 1;
+    }
+
+    if (n == 0) {
+        return AckermannFn(m - 1, 1);
+    }
+
+    return AckermannFn(m - 1, AckermannFn(m, n - 1));
+}
+
 //! \fn     FiboIter
 //! brief   Computes a Fibonacci number iteratively
 int FiboIter(int num)
@@ -93,15 +108,21 @@ TEST(FindPalindTest, CheckIfPalindromable) {
 //! \test   FiboRecursiveShouldEqualFiboIterative
 TEST(FiboTest, FiboRecursiveShouldEqualFiboIterative) {
     for (int i = 1; i < 12; ++i) {
-        std::cout << "Fibo[" << i << "] == " << Fibo(i) << " : " << FiboIter(i) << std::endl;
         EXPECT_EQ(Fibo(i), FiboIter(i));
     }
 }
 
 //! \test   ReversedStringShouldBeItsMirror
 TEST(ReverseString, ReversedStringShouldBeItsMirror) {
-    EXPECT_EQ(Reversi("a"), "a");
-    EXPECT_EQ(Reversi("abcdefgh"), "hgfedcba");
+    char alpha8[] = "abcdefgh";
+    char* ahpla8 = Reversi(alpha8);
+    EXPECT_TRUE(strcmp(alpha8, ahpla8) == 0);
+}
+
+//! \test   TestRecursiveAckermannFunction
+TEST(Ackermann, TestRecursiveAckermannFunction) {
+    EXPECT_EQ(AckermannFn(0, 1), 2);
+    EXPECT_EQ(AckermannFn(1, 0), AckermannFn(0, 1));
 }
 
 int main(int argc, char** argv)

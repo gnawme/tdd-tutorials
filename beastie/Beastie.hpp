@@ -13,19 +13,19 @@ struct BSTNode
 {
     BSTNode(DataT value)
     : key(value)
-    , left_child(nullptr)
-    , right_child(nullptr)
+    , left(nullptr)
+    , right(nullptr)
     {}
 
     ~BSTNode()
     {
-        left_child = nullptr;
-        right_child = nullptr;
+        left = nullptr;
+        right = nullptr;
     }
 
     DataT           key;
-    BSTNode<DataT>* left_child;
-    BSTNode<DataT>* right_child;
+    BSTNode<DataT>* left;
+    BSTNode<DataT>* right;
 };
 
 //! \class  Beastie
@@ -100,9 +100,9 @@ public:
             m_tree.clear();
         }
 
-        TraverseInorder(root->left_child);
+        TraverseInorder(root->left);
         Visit(root);
-        TraverseInorder(root->right_child);
+        TraverseInorder(root->right);
     }
 
     //! \fn     TraversePostorder
@@ -118,8 +118,8 @@ public:
             m_tree.clear();
         }
 
-        TraversePostorder(root->left_child);
-        TraversePostorder(root->right_child);
+        TraversePostorder(root->left);
+        TraversePostorder(root->right);
         Visit(root);
     }
 
@@ -137,8 +137,8 @@ public:
         }
 
         Visit(root);
-        TraversePreorder(root->left_child);
-        TraversePreorder(root->right_child);
+        TraversePreorder(root->left);
+        TraversePreorder(root->right);
     }
 
 private:
@@ -148,12 +148,12 @@ private:
         int left_depth = depth;
         int right_depth = depth;
 
-        if (root->left_child != nullptr) {
-            left_depth = Depth(root->left_child, depth + 1);
+        if (root->left != nullptr) {
+            left_depth = Depth(root->left, depth + 1);
         }
 
-        if (root->right_child != nullptr) {
-            right_depth = Depth(root->right_child, depth + 1);
+        if (root->right != nullptr) {
+            right_depth = Depth(root->right, depth + 1);
         }
 
         return (left_depth > right_depth) ? left_depth : right_depth;
@@ -170,8 +170,8 @@ private:
             m_tree.clear();
         }
 
-        DoClear(root->left_child);
-        DoClear(root->right_child);
+        DoClear(root->left);
+        DoClear(root->right);
         delete root;
     }
 
@@ -179,18 +179,18 @@ private:
     BSTNode<DataT>* Insert(BSTNode<DataT>* root, DataT value)
     {
         if (value < root->key) {
-            if (root->left_child == nullptr) {
-                root->left_child = new BSTNode<DataT>(value);
-                return root->left_child;
+            if (root->left == nullptr) {
+                root->left = new BSTNode<DataT>(value);
+                return root->left;
             } else {
-                Insert(root->left_child, value);
+                Insert(root->left, value);
             }
         } else {
-            if (root->right_child == nullptr) {
-                root->right_child = new BSTNode<DataT>(value);
-                return root->right_child;
+            if (root->right == nullptr) {
+                root->right = new BSTNode<DataT>(value);
+                return root->right;
             } else {
-                Insert(root->right_child, value);
+                Insert(root->right, value);
             }
         }
     }
@@ -205,9 +205,9 @@ private:
         if (key == root->key) {
             return root;
         } else if (key < root->key) {
-            return Search(root->left_child, key);
+            return Search(root->left, key);
         } else {
-            return Search(root->right_child, key);
+            return Search(root->right, key);
         }
     }
 

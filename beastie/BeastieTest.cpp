@@ -145,7 +145,7 @@ TEST_F(BeastieTest, DepthOfTreeShouldBeGreaterThanOne) {
     }
 
     int depth = beastie.Depth();
-    
+
     ASSERT_TRUE(depth > 0);
 }
 
