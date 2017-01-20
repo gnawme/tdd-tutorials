@@ -1,0 +1,24 @@
+#IncludeRegexLine: ^[ 	]*#[ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+../../slinky/Slinky.hpp
+vector
+-
+
+/home/norme/Projects/tdd-tutorials/goflist/GoFList.hpp
+Slinky.hpp
+/home/norme/Projects/tdd-tutorials/goflist/Slinky.hpp
+memory
+-
+
+/home/norme/Projects/tdd-tutorials/goflist/GoFListTest.cpp
+GoFList.hpp
+/home/norme/Projects/tdd-tutorials/goflist/GoFList.hpp
+gmock/gmock.h
+-
+

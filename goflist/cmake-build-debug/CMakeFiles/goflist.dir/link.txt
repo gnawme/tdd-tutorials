@@ -1,0 +1,1 @@
+/usr/bin/c++   -g   CMakeFiles/goflist.dir/GoFListTest.cpp.o  -o goflist -lgtest -lpthread 
