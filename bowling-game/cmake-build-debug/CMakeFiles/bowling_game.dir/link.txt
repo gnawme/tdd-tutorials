@@ -1,1 +1,0 @@
-/usr/bin/c++   -g   CMakeFiles/bowling_game.dir/BowlingGameTest.cpp.o  -o bowling_game -lgtest -lpthread 
