@@ -24,6 +24,12 @@ public:
     , m_list_size(size)
     {}
 
+    //! \fn     Append
+    void Append(const DataT& data)
+    {
+        m_slist->Append(data);
+    }
+
     //! \fn     Count
     size_t Count() const
     {

@@ -1,5 +1,6 @@
 
 #include <algorithm>
+#include <cstdlib>
 #include <iostream>
 #include <string>
 #include <map>
@@ -95,6 +96,26 @@ char* Reversi(char* instr)
     return instr;
 }
 
+//! \fn     ToBase
+//! \brief  Converts to bases with digit range [0-9]
+std::string ToBase(int number, int base, std::map<int, char>& basemap)
+{
+    std::string digits;
+    while (number != 0) {
+        int remainder = number % base;
+        number /= base;
+        char digit = basemap[remainder];
+        digits += digit;
+    }
+
+    if (digits.empty()) {
+        return std::string("0");
+    } else {
+        std::reverse(digits.begin(), digits.end());
+        return digits;
+    }
+}
+
 //! \test   CheckIfPalindromable
 TEST(FindPalindTest, CheckIfPalindromable) {
     std::string testcase("aaabbbb");
@@ -123,6 +144,31 @@ TEST(ReverseString, ReversedStringShouldBeItsMirror) {
 TEST(Ackermann, TestRecursiveAckermannFunction) {
     EXPECT_EQ(AckermannFn(0, 1), 2);
     EXPECT_EQ(AckermannFn(1, 0), AckermannFn(0, 1));
+}
+
+//! \test   VerifyBaseConversionsToBase2
+TEST(ToBase, VerifyBaseConversionsToBase2) {
+    std::map<int, char> binmap{
+        {0, '0'}, {1, '1'}
+    };
+
+    std::map<int, char> octmap{
+        {0, '0'}, {1, '1'}, {2, '2'}, {3, '3'},
+        {4, '4'}, {5, '5'}, {6, '7'}, {7, '7'},
+    };
+
+    std::map<int, char> hexmap{
+        {0, '0'}, {1, '1'}, {2, '2'}, {3, '3'},
+        {4, '4'}, {5, '5'}, {6, '7'}, {7, '7'},
+        {8, '8'}, {9, '9'}, {10, 'A'}, {11, 'B'},
+        {12, 'C'}, {13, 'D'}, {14, 'E'}, {15, 'F'},
+    };
+
+    for (auto i = 1; i < 16; ++i) {
+        std::cout << i << " base " << 2 << ": " << ToBase(i, 2, binmap) << std::endl;
+        std::cout << i << " base " << 8 << ": " << ToBase(i, 8, octmap) << std::endl;
+        std::cout << i << " base " << 16 << ": " << ToBase(i, 16, hexmap) << std::endl;
+    }
 }
 
 int main(int argc, char** argv)

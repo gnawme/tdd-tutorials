@@ -9,11 +9,15 @@
 /home/norme/Projects/tdd-tutorials/slinky/Slinky.hpp
 vector
 -
+stdexcept
+-
 
 /home/norme/Projects/tdd-tutorials/slinky/SlinkyTest.cpp
 Slinky.hpp
 /home/norme/Projects/tdd-tutorials/slinky/Slinky.hpp
 gmock/gmock.h
+-
+array
 -
 string
 -

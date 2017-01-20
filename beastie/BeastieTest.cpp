@@ -149,6 +149,16 @@ TEST_F(BeastieTest, DepthOfTreeShouldBeGreaterThanOne) {
     ASSERT_TRUE(depth > 0);
 }
 
+//! \test   InorderTraversalShouldBeSameAsSorted
+TEST_F(BeastieTest, InorderTraversalShouldBeSameAsSorted) {
+    beastie.TraverseInorder(beastie.GetRoot());
+    std::vector<int> compare = beastie.GetTree();
+    std::vector<int> sorted{compare.begin(), compare.end()};
+    std::sort(sorted.begin(), sorted.end());
+
+    EXPECT_THAT(compare, ::testing::ContainerEq(sorted));
+}
+
 //! \fn     main
 int main(int argc, char** argv) {
     testing::InitGoogleTest(&argc, argv);

@@ -5,6 +5,7 @@
 #define SLINKY_SLINKY_HPP
 
 #include <vector>
+#include <stdexcept>
 
 //! \struct ListNode
 template<typename DataT>
@@ -14,7 +15,7 @@ struct ListNode
     : next(nullptr)
     {}
 
-    ListNode(DataT data)
+    ListNode(const DataT& data)
     : data(data)
     , next(nullptr)
     {}
@@ -28,14 +29,41 @@ template<typename DataT>
 class Slinky
 {
 public:
+    //!
     Slinky()
     : m_head(new ListNode<DataT>)
     , m_size(0)
     {}
 
+    //!
+    Slinky(const Slinky& other)
+    {
+
+    }
+
+    //!
     ~Slinky()
     {
+        Clear();
         delete m_head;
+    }
+
+    //! \fn     Append
+    //! brief   Appends a value to the list's end
+    void Append(const DataT& data)
+    {
+        if (m_head->next == nullptr) {
+            Append(m_head, data);
+            return;
+        } else {
+            auto node = m_head->next;
+            for (node; node != nullptr; node = node->next) {
+                if (node->next == nullptr) {
+                    Append(node, data);
+                    return;
+                }
+            }
+        }
     }
 
     //! \fn     Clear
@@ -52,6 +80,8 @@ public:
                 it = temp;
             }
         }
+
+        m_head->next = nullptr;
     }
 
     //! \fn     Delete
@@ -68,13 +98,48 @@ public:
     }
 
     //! \fn     Delete
-    //! \brief  Deletes the node after the given node
-    ListNode<DataT>* Delete(ListNode<DataT>* node)
+    //! \brief  Deletes the given node
+    ListNode<DataT>* Delete(ListNode<DataT>* target)
     {
-        ListNode<DataT>* temp = node->next->next;
-        delete node->next;
-        node->next = temp;
-        --m_size;
+        if (!IsEmpty()) {
+            for (auto node = m_head->next, prev = m_head; node != nullptr; prev = prev->next, node = node->next) {
+                if (node == target) {
+                    ListNode<DataT>* temp = node->next;
+                    prev->next = temp;
+                    delete node;
+                    --m_size;
+                }
+            }
+        }
+    }
+
+    //! \fn     First
+    //! \brief  Returns the first object in the list
+    DataT First() const
+    {
+        if (!IsEmpty()) {
+            return m_head->next->data;
+        } else {
+            throw std::out_of_range("Slinky::First: list is empty");
+        }
+    }
+
+    //! \fn     Get
+    //! \brief  Returns the object at the given index
+    DataT Get(std::size_t index) const
+    {
+        if (index > m_size) {
+            throw std::out_of_range("Slinky::Get(): index is out of range");
+        }
+
+        std::size_t where = 0;
+        for (ListNode<DataT>* node = m_head->next; node != nullptr; node = node->next) {
+            if (where == index) {
+                return node->data;
+            }
+
+            ++where;
+        }
     }
 
     //! \fn     Insert
@@ -101,9 +166,38 @@ public:
     }
 
     //! \fn     IsEmpty
-    bool IsEmpty()
+    bool IsEmpty() const
     {
         return m_head->next == nullptr;
+    }
+
+    //! \fn     Last
+    //! \brief  Returns the last object in the list
+    DataT Last() const
+    {
+        if (!IsEmpty()) {
+            auto node = m_head->next;
+            for (node; node != nullptr; node = node->next) {
+                if (node->next == nullptr) {
+                    return node->data;
+                }
+            }
+        } else {
+            throw std::out_of_range("Slinky::First: list is empty");
+        }
+    }
+
+    //! \tn     Prepend
+    void Prepend(const DataT& data) {
+        if (m_head->next == nullptr) {
+            m_head->next = new ListNode<DataT>(data);
+            ++m_size;
+        } else {
+            ListNode<DataT>* temp = m_head->next;
+            m_head->next = new ListNode<DataT>(data);
+            m_head->next->next = temp;
+            ++m_size;
+        }
     }
 
     //! \fn     PrintList
@@ -117,6 +211,39 @@ public:
         }
 
         return std::vector<DataT>(m_contents.begin(), m_contents.end());
+    }
+
+    //! \fn     Remove
+    //! \brief  Removes the given object from the list
+    void Remove(const DataT& data)
+    {
+        if (!IsEmpty()) {
+            for (auto node = m_head->next; node != nullptr; node = node->next) {
+                if (node->data == data) {
+                    Delete(node);
+                }
+            }
+        }
+    }
+
+    //! \fn     RemoveFirst
+    //! \brief  Removes the first object from the list
+    void RemoveFirst()
+    {
+        Delete();
+    }
+
+    //! \fn     RemoveLast
+    //! \brief  Removes the last object from the list
+    void RemoveLast()
+    {
+        if (!IsEmpty()) {
+            for (auto node = m_head->next; node != nullptr; node = node->next) {
+                if (node->next == nullptr) {
+                    Delete(node);
+                }
+            }
+        }
     }
 
     //! \fn     ReverseList
@@ -157,6 +284,14 @@ public:
     }
 
 private:
+    void Append(ListNode<DataT>* current, const DataT& data)
+    {
+        ListNode<DataT>* newnode = new ListNode<DataT>(data);
+        current->next = newnode;
+        ++m_size;
+        return;
+    }
+
     ListNode<DataT>*    m_head;
     std::size_t         m_size;
     std::vector<DataT>  m_contents;

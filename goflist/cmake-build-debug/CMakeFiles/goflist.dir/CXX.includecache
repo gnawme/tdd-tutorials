@@ -9,6 +9,8 @@
 ../../slinky/Slinky.hpp
 vector
 -
+stdexcept
+-
 
 /home/norme/Projects/tdd-tutorials/goflist/GoFList.hpp
 Slinky.hpp

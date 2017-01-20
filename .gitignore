@@ -4,6 +4,8 @@
 # User-specific stuff:
 .idea/workspace.xml
 .idea/tasks.xml
+/bowling-game
+/soundex
 
 # Sensitive or high-churn files:
 .idea/dataSources/
