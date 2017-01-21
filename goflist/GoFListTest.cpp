@@ -18,6 +18,20 @@ struct GoFListTest: public ::testing::Test
         }
     };
 
+    void AppendNATO(int count)
+    {
+        for (auto i = 0; i < count; ++i) {
+            goflist.Append(natos[i]);
+        }
+    }
+
+    void PrependNATO(int count)
+    {
+        for (auto i = 0; i < count; ++i) {
+            goflist.Prepend(natos[i]);
+        }
+    }
+
     GoFList<std::string>    goflist;
 };
 
@@ -29,11 +43,22 @@ TEST_F(GoFListTest, InitialCountShouldBeZero) {
 //! \test   CountAfterAppendShouldBeGreater
 TEST_F(GoFListTest, CountAfterAppendShouldBeGreater) {
     auto count0 = goflist.Count();
-    goflist.Append(natos[0]);
-    goflist.Append(natos[1]);
-
+    AppendNATO(2);
     auto count2 = goflist.Count();
     EXPECT_GT(count2, count0);
+}
+
+//! \test   FirstShouldBeAlfaLastShouldBeDelta
+TEST_F(GoFListTest, FirstShouldBeAlfaLastShouldBeDelta) {
+    AppendNATO(4);
+    EXPECT_EQ(natos[0], goflist.First());
+    EXPECT_EQ(natos[3], goflist.Last());
+}
+
+//! \test   TopShouldReturnCharlie
+TEST_F(GoFListTest, TopShouldReturnCharlie) {
+    PrependNATO(3);
+    EXPECT_EQ(natos[2], goflist.Top());
 }
 
 //! \fn     main

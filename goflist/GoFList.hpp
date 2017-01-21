@@ -15,29 +15,29 @@ enum {
 //! \class  GoFList
 //! \brief  Implementation of GoF List
 template<typename DataT>
-class GoFList
+class GoFList: public Slinky<DataT>
 {
 public:
     //! \fn
     GoFList(size_t size = DEFAULT_LIST_CAPACITY)
-    : m_slist(new Slinky<DataT>())
+    : Slinky<DataT>()
     , m_list_size(size)
     {}
 
-    //! \fn     Append
-    void Append(const DataT& data)
+    //! \fn     Count
+    std::size_t Count() const
     {
-        m_slist->Append(data);
+        return Slinky<DataT>::Size();
     }
 
-    //! \fn     Count
-    size_t Count() const
+    //! \fn     Top
+    //! brief   GoF Stack Interface; returns top of stack
+    DataT Top() const
     {
-        return m_slist->Size();
+        return Slinky<DataT>::First();
     }
 
 private:
-    std::unique_ptr<Slinky<DataT>>  m_slist;
     size_t                          m_list_size;
 };
 

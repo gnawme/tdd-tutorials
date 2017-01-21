@@ -73,7 +73,7 @@ public:
     }
 
     //!
-    ~Slinky()
+    virtual ~Slinky()
     {
         Clear();
         delete m_head;
