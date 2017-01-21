@@ -37,8 +37,39 @@ public:
 
     //!
     Slinky(const Slinky& other)
+    : m_head(new ListNode<DataT>)
+    , m_size(0)
     {
+        Copy(other);
+    }
 
+    //!
+    Slinky& operator=(const Slinky& other)
+    {
+        if (&other != this) {
+            Clear();
+            Copy(other);
+        }
+
+        return *this;
+    }
+
+    //! Move constructor
+    Slinky(Slinky&& other)
+    {
+        Copy(other);
+        other.Clear();
+    }
+
+    //! Move assignment operator
+    Slinky& operator=(Slinky&& other) {
+        if (&other != this) {
+            Clear();
+            Copy(other);
+            other.Clear();
+        }
+
+        return *this;
     }
 
     //!
@@ -226,6 +257,13 @@ public:
         }
     }
 
+    //! \fn     RemoveAll
+    //! \brief  Removes all objects from the list
+    void RemoveAll()
+    {
+        Clear();
+    }
+
     //! \fn     RemoveFirst
     //! \brief  Removes the first object from the list
     void RemoveFirst()
@@ -290,6 +328,21 @@ private:
         current->next = newnode;
         ++m_size;
         return;
+    }
+
+    void Copy(const Slinky& other)
+    {
+        for (auto i = 0; i < other.Size(); ++i) {
+            Append(other.Get(i));
+        }
+    }
+
+
+    void Copy(Slinky& other)
+    {
+        for (auto i = 0; i < other.Size(); ++i) {
+            Append(other.Get(i));
+        }
     }
 
     ListNode<DataT>*    m_head;

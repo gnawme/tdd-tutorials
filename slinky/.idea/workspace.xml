@@ -12,19 +12,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="e660cd4d-a509-49e9-8e29-9c104ae22dfa" name="Default" comment="Checkpoint checkin for GoF List implementation">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../maxheap/.idea/misc.xml" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../goflist/cmake-build-debug/CMakeFiles/goflist.dir/GoFListTest.cpp.o" afterPath="$PROJECT_DIR$/../goflist/cmake-build-debug/CMakeFiles/goflist.dir/GoFListTest.cpp.o" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../goflist/cmake-build-debug/goflist" afterPath="$PROJECT_DIR$/../goflist/cmake-build-debug/goflist" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../.gitignore" afterPath="$PROJECT_DIR$/../.gitignore" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../beastie/.idea/workspace.xml" afterPath="$PROJECT_DIR$/../beastie/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../beastie/BeastieTest.cpp" afterPath="$PROJECT_DIR$/../beastie/BeastieTest.cpp" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../goflist/.idea/workspace.xml" afterPath="$PROJECT_DIR$/../goflist/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../goflist/GoFList.hpp" afterPath="$PROJECT_DIR$/../goflist/GoFList.hpp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../goflist/GoFListTest.cpp" afterPath="$PROJECT_DIR$/../goflist/GoFListTest.cpp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../goflist/cmake-build-debug/CMakeFiles/goflist.dir/CXX.includecache" afterPath="$PROJECT_DIR$/../goflist/cmake-build-debug/CMakeFiles/goflist.dir/CXX.includecache" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../miscellar/.idea/workspace.xml" afterPath="$PROJECT_DIR$/../miscellar/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../miscellar/cmake-build-debug/CMakeFiles/miscellar.dir/CXX.includecache" afterPath="$PROJECT_DIR$/../miscellar/cmake-build-debug/CMakeFiles/miscellar.dir/CXX.includecache" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../miscellar/main.cpp" afterPath="$PROJECT_DIR$/../miscellar/main.cpp" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Slinky.hpp" afterPath="$PROJECT_DIR$/Slinky.hpp" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SlinkyTest.cpp" afterPath="$PROJECT_DIR$/SlinkyTest.cpp" />
@@ -44,21 +32,21 @@
   <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="CMakeLists.txt" pinned="false" current-in-tab="true">
+      <file leaf-file-name="CMakeLists.txt" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/CMakeLists.txt">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="180">
-              <caret line="10" column="16" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="11" selection-end-column="0" />
+            <state relative-caret-position="198">
+              <caret line="11" column="0" lean-forward="true" selection-start-line="11" selection-start-column="0" selection-end-line="11" selection-end-column="0" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="SlinkyTest.cpp" pinned="false" current-in-tab="false">
+      <file leaf-file-name="SlinkyTest.cpp" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/SlinkyTest.cpp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="719">
-              <caret line="199" column="18" lean-forward="false" selection-start-line="199" selection-start-column="18" selection-end-line="199" selection-end-column="18" />
+            <state relative-caret-position="449">
+              <caret line="251" column="30" lean-forward="true" selection-start-line="251" selection-start-column="30" selection-end-line="251" selection-end-column="30" />
               <folding>
                 <element signature="e#0#21#0" expanded="true" />
               </folding>
@@ -66,11 +54,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="GoFList.hpp" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/../goflist/GoFList.hpp">
+      <file leaf-file-name="move.h" pinned="false" current-in-tab="false">
+        <entry file="file:///usr/include/c++/5/bits/move.h">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="458">
-              <caret line="39" column="36" lean-forward="false" selection-start-line="39" selection-start-column="36" selection-end-line="39" selection-end-column="36" />
+            <state relative-caret-position="200">
+              <caret line="101" column="0" lean-forward="false" selection-start-line="101" selection-start-column="0" selection-end-line="101" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -79,8 +67,8 @@
       <file leaf-file-name="Slinky.hpp" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Slinky.hpp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="333">
-              <caret line="241" column="44" lean-forward="true" selection-start-line="241" selection-start-column="44" selection-end-line="241" selection-end-column="44" />
+            <state relative-caret-position="607">
+              <caret line="263" column="16" lean-forward="false" selection-start-line="263" selection-start-column="16" selection-end-line="263" selection-end-column="16" />
               <folding>
                 <element signature="e#284#301#0" expanded="true" />
                 <element signature="e#353#369#0" expanded="true" />
@@ -112,12 +100,17 @@
       <find>Get</find>
       <find>&quot;charlie&quot;</find>
       <find>Append</find>
-      <find>Delete</find>
       <find>prev</find>
+      <find>Delete</find>
+      <find>std::vector&lt;std::string&gt;</find>
+      <find>First</find>
+      <find>current_node</find>
+      <find>Remove</find>
     </findStrings>
     <replaceStrings>
       <replace>In</replace>
       <replace>Alfa</replace>
+      <replace>TStringVec</replace>
       <replace>natos[2]</replace>
     </replaceStrings>
   </component>
@@ -381,12 +374,20 @@
       <workItem from="1484332529108" duration="736000" />
       <workItem from="1484336518985" duration="1029000" />
       <workItem from="1484873403582" duration="4695000" />
-      <workItem from="1484938440499" duration="14264000" />
+      <workItem from="1484938440499" duration="19572000" />
     </task>
+    <task id="LOCAL-00001" summary="Checkpoint checkin for GoF List implementation">
+      <created>1484956384338</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1484956384338</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="43491000" />
+    <option name="totallyTimeSpent" value="48799000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="65" y="24" width="1855" height="1176" extended-state="6" />
@@ -394,7 +395,7 @@
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3295238" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3295238" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="CMake" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -424,19 +425,11 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="7" />
+      <option name="time" value="11" />
     </breakpoint-manager>
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$USER_HOME$/Dropbox/Public/Arbeit/BlockComments.cpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="36">
-          <caret line="2" column="79" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="2" selection-end-column="79" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/CMakeLists.txt">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -871,25 +864,11 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/SlinkyTest.cpp">
+    <entry file="file://$PROJECT_DIR$/CMakeLists.txt">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="719">
-          <caret line="199" column="18" lean-forward="false" selection-start-line="199" selection-start-column="18" selection-end-line="199" selection-end-column="18" />
-          <folding>
-            <element signature="e#0#21#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Slinky.hpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="333">
-          <caret line="241" column="44" lean-forward="true" selection-start-line="241" selection-start-column="44" selection-end-line="241" selection-end-column="44" />
-          <folding>
-            <element signature="e#284#301#0" expanded="true" />
-            <element signature="e#353#369#0" expanded="true" />
-            <element signature="e#598#614#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="198">
+          <caret line="11" column="0" lean-forward="true" selection-start-line="11" selection-start-column="0" selection-end-line="11" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -901,11 +880,33 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/CMakeLists.txt">
+    <entry file="file:///usr/include/c++/5/bits/move.h">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="180">
-          <caret line="10" column="16" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="11" selection-end-column="0" />
+        <state relative-caret-position="200">
+          <caret line="101" column="0" lean-forward="false" selection-start-line="101" selection-start-column="0" selection-end-line="101" selection-end-column="0" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Slinky.hpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="607">
+          <caret line="263" column="16" lean-forward="false" selection-start-line="263" selection-start-column="16" selection-end-line="263" selection-end-column="16" />
+          <folding>
+            <element signature="e#284#301#0" expanded="true" />
+            <element signature="e#353#369#0" expanded="true" />
+            <element signature="e#598#614#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/SlinkyTest.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="449">
+          <caret line="251" column="30" lean-forward="true" selection-start-line="251" selection-start-column="30" selection-end-line="251" selection-end-column="30" />
+          <folding>
+            <element signature="e#0#21#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

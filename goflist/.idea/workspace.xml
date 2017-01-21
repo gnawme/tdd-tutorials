@@ -12,19 +12,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d2585701-3b13-499d-bba6-a153d0d7c3a2" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../maxheap/.idea/misc.xml" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/goflist.dir/GoFListTest.cpp.o" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/goflist.dir/GoFListTest.cpp.o" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cmake-build-debug/goflist" afterPath="$PROJECT_DIR$/cmake-build-debug/goflist" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../.gitignore" afterPath="$PROJECT_DIR$/../.gitignore" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../beastie/.idea/workspace.xml" afterPath="$PROJECT_DIR$/../beastie/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../beastie/BeastieTest.cpp" afterPath="$PROJECT_DIR$/../beastie/BeastieTest.cpp" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/GoFList.hpp" afterPath="$PROJECT_DIR$/GoFList.hpp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/GoFListTest.cpp" afterPath="$PROJECT_DIR$/GoFListTest.cpp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/goflist.dir/CXX.includecache" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/goflist.dir/CXX.includecache" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../miscellar/.idea/workspace.xml" afterPath="$PROJECT_DIR$/../miscellar/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../miscellar/cmake-build-debug/CMakeFiles/miscellar.dir/CXX.includecache" afterPath="$PROJECT_DIR$/../miscellar/cmake-build-debug/CMakeFiles/miscellar.dir/CXX.includecache" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../miscellar/main.cpp" afterPath="$PROJECT_DIR$/../miscellar/main.cpp" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../slinky/.idea/workspace.xml" afterPath="$PROJECT_DIR$/../slinky/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../slinky/Slinky.hpp" afterPath="$PROJECT_DIR$/../slinky/Slinky.hpp" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../slinky/SlinkyTest.cpp" afterPath="$PROJECT_DIR$/../slinky/SlinkyTest.cpp" />
@@ -80,23 +68,23 @@
         <entry file="file://$PROJECT_DIR$/../slinky/Slinky.hpp">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="326">
-              <caret line="66" column="0" lean-forward="false" selection-start-line="66" selection-start-column="0" selection-end-line="66" selection-end-column="0" />
+              <caret line="97" column="0" lean-forward="false" selection-start-line="97" selection-start-column="0" selection-end-line="97" selection-end-column="0" />
               <folding>
-                <marker date="1484956251083" expanded="true" signature="386:569" ph="{...}" />
-                <marker date="1484956251083" expanded="true" signature="628:7189" ph="{...}" />
-                <marker date="1484956251083" expanded="true" signature="761:769" ph="{...}" />
-                <marker date="1484956251083" expanded="true" signature="797:844" ph="{...}" />
-                <marker date="1484956251083" expanded="true" signature="958:1329" ph="{...}" />
-                <marker date="1484956251083" expanded="true" signature="1431:1736" ph="{...}" />
-                <marker date="1484956251083" expanded="true" signature="1848:2036" ph="{...}" />
-                <marker date="1484956251083" expanded="true" signature="2157:2543" ph="{...}" />
-                <marker date="1484956251083" expanded="true" signature="2935:3295" ph="{...}" />
-                <marker date="1484956251083" expanded="true" signature="3428:3551" ph="{...}" />
-                <marker date="1484956251083" expanded="true" signature="3709:3828" ph="{...}" />
-                <marker date="1484956251083" expanded="true" signature="3883:3930" ph="{...}" />
-                <marker date="1484956251083" expanded="true" signature="4819:5099" ph="{...}" />
-                <marker date="1484956251083" expanded="true" signature="6031:6788" ph="{...}" />
-                <marker date="1484956251083" expanded="true" signature="6844:6874" ph="{...}" />
+                <marker date="1484965922882" expanded="true" signature="386:569" ph="{...}" />
+                <marker date="1484965922882" expanded="true" signature="628:8163" ph="{...}" />
+                <marker date="1484965922882" expanded="true" signature="811:839" ph="{...}" />
+                <marker date="1484965922882" expanded="true" signature="1365:1412" ph="{...}" />
+                <marker date="1484965922882" expanded="true" signature="1526:1897" ph="{...}" />
+                <marker date="1484965922882" expanded="true" signature="1999:2304" ph="{...}" />
+                <marker date="1484965922882" expanded="true" signature="2416:2604" ph="{...}" />
+                <marker date="1484965922882" expanded="true" signature="2725:3111" ph="{...}" />
+                <marker date="1484965922882" expanded="true" signature="3503:3863" ph="{...}" />
+                <marker date="1484965922882" expanded="true" signature="3996:4119" ph="{...}" />
+                <marker date="1484965922882" expanded="true" signature="4277:4396" ph="{...}" />
+                <marker date="1484965922882" expanded="true" signature="4451:4498" ph="{...}" />
+                <marker date="1484965922882" expanded="true" signature="5387:5667" ph="{...}" />
+                <marker date="1484965922882" expanded="true" signature="6726:7483" ph="{...}" />
+                <marker date="1484965922882" expanded="true" signature="7539:7569" ph="{...}" />
               </folding>
             </state>
           </provider>
@@ -390,12 +378,12 @@
       <option name="presentableId" value="Default" />
       <updated>1484876040565</updated>
       <workItem from="1484876043024" duration="2798000" />
-      <workItem from="1484938441650" duration="3899000" />
+      <workItem from="1484938441650" duration="4101000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="6697000" />
+    <option name="totallyTimeSpent" value="6899000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="65" y="24" width="1855" height="1176" extended-state="6" />
@@ -501,23 +489,23 @@
     <entry file="file://$PROJECT_DIR$/../slinky/Slinky.hpp">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="326">
-          <caret line="66" column="0" lean-forward="false" selection-start-line="66" selection-start-column="0" selection-end-line="66" selection-end-column="0" />
+          <caret line="97" column="0" lean-forward="false" selection-start-line="97" selection-start-column="0" selection-end-line="97" selection-end-column="0" />
           <folding>
-            <marker date="1484956251083" expanded="true" signature="386:569" ph="{...}" />
-            <marker date="1484956251083" expanded="true" signature="628:7189" ph="{...}" />
-            <marker date="1484956251083" expanded="true" signature="761:769" ph="{...}" />
-            <marker date="1484956251083" expanded="true" signature="797:844" ph="{...}" />
-            <marker date="1484956251083" expanded="true" signature="958:1329" ph="{...}" />
-            <marker date="1484956251083" expanded="true" signature="1431:1736" ph="{...}" />
-            <marker date="1484956251083" expanded="true" signature="1848:2036" ph="{...}" />
-            <marker date="1484956251083" expanded="true" signature="2157:2543" ph="{...}" />
-            <marker date="1484956251083" expanded="true" signature="2935:3295" ph="{...}" />
-            <marker date="1484956251083" expanded="true" signature="3428:3551" ph="{...}" />
-            <marker date="1484956251083" expanded="true" signature="3709:3828" ph="{...}" />
-            <marker date="1484956251083" expanded="true" signature="3883:3930" ph="{...}" />
-            <marker date="1484956251083" expanded="true" signature="4819:5099" ph="{...}" />
-            <marker date="1484956251083" expanded="true" signature="6031:6788" ph="{...}" />
-            <marker date="1484956251083" expanded="true" signature="6844:6874" ph="{...}" />
+            <marker date="1484965922882" expanded="true" signature="386:569" ph="{...}" />
+            <marker date="1484965922882" expanded="true" signature="628:8163" ph="{...}" />
+            <marker date="1484965922882" expanded="true" signature="811:839" ph="{...}" />
+            <marker date="1484965922882" expanded="true" signature="1365:1412" ph="{...}" />
+            <marker date="1484965922882" expanded="true" signature="1526:1897" ph="{...}" />
+            <marker date="1484965922882" expanded="true" signature="1999:2304" ph="{...}" />
+            <marker date="1484965922882" expanded="true" signature="2416:2604" ph="{...}" />
+            <marker date="1484965922882" expanded="true" signature="2725:3111" ph="{...}" />
+            <marker date="1484965922882" expanded="true" signature="3503:3863" ph="{...}" />
+            <marker date="1484965922882" expanded="true" signature="3996:4119" ph="{...}" />
+            <marker date="1484965922882" expanded="true" signature="4277:4396" ph="{...}" />
+            <marker date="1484965922882" expanded="true" signature="4451:4498" ph="{...}" />
+            <marker date="1484965922882" expanded="true" signature="5387:5667" ph="{...}" />
+            <marker date="1484965922882" expanded="true" signature="6726:7483" ph="{...}" />
+            <marker date="1484965922882" expanded="true" signature="7539:7569" ph="{...}" />
           </folding>
         </state>
       </provider>
