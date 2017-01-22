@@ -61,6 +61,31 @@ TEST_F(GoFListTest, TopShouldReturnCharlie) {
     EXPECT_EQ(natos[2], goflist.Top());
 }
 
+//! \test   PushPushShouldReturnAlfaAlfa
+TEST_F(GoFListTest, PushPushShouldReturnAlfaAlfa) {
+    goflist.Push(natos[0]);
+    goflist.Push(natos[0]);
+
+    std::vector<std::string> expected{natos[0], natos[0]};
+    std::vector<std::string> aa = goflist.PrintList();
+
+    EXPECT_THAT(expected, ::testing::Eq(aa));
+}
+
+//! \test   ThreePushesAndPopShouldReturnBravoAlfa
+TEST_F(GoFListTest, ThreePushesAndPopShouldReturnBravoAlfa) {
+    for (auto i = 0; i < 3; ++i) {
+        goflist.Push(natos[i]);
+    }
+
+    std::string whatsit = goflist.Pop();
+    EXPECT_EQ(natos[2], whatsit);
+
+    std::vector<std::string> expected{natos[1], natos[0]};
+    std::vector<std::string> ba = goflist.PrintList();
+    EXPECT_THAT(expected, ::testing::Eq(ba));
+}
+
 //! \fn     main
 int main(int argc, char** argv)
 {

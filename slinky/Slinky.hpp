@@ -55,18 +55,34 @@ public:
     }
 
     //! Move constructor
+    //! \see    http://blog.smartbear.com/c-plus-plus/c11-tutorial-introducing-the-move-constructor-and-the-move-assignment-operator/
     Slinky(Slinky&& other)
+    : m_head(new ListNode<DataT>)
+    , m_size(other.m_size)
     {
-        Copy(other);
-        other.Clear();
+        // Pilfer other's resources
+        m_head->next = other.Head();
+        m_size = other.m_size;
+
+        // Reset other to default state
+        other.m_head->next = nullptr;
+        other.m_size = 0;
     }
 
     //! Move assignment operator
+    //! \see    http://blog.smartbear.com/c-plus-plus/c11-tutorial-introducing-the-move-constructor-and-the-move-assignment-operator/
     Slinky& operator=(Slinky&& other) {
         if (&other != this) {
+            // Release the current object's resources
             Clear();
-            Copy(other);
-            other.Clear();
+
+            // Pilfer other's resources
+            m_head->next = other.Head();
+            m_size = other.m_size;
+
+            // Reset other to default state
+            other.m_head->next = nullptr;
+            other.m_size = 0;
         }
 
         return *this;
@@ -102,17 +118,16 @@ public:
     void Clear()
     {
         if (!IsEmpty()) {
-            ListNode<DataT> *it = m_head->next;
+            ListNode<DataT>* it = m_head->next;
             while (it != nullptr) {
-                ListNode<DataT> *temp = it->next;
+                ListNode<DataT>* temp = it->next;
                 delete it;
-                --m_size;
-
                 it = temp;
             }
         }
 
         m_head->next = nullptr;
+        m_size = 0;
     }
 
     //! \fn     Delete
@@ -171,6 +186,13 @@ public:
 
             ++where;
         }
+    }
+
+    //! \fn     Head
+    //! \brief  Gets the first node of the list
+    ListNode<DataT>* Head()
+    {
+        return m_head->next;
     }
 
     //! \fn     Insert
@@ -322,6 +344,8 @@ public:
     }
 
 private:
+    //! \fn     Append
+    //! \brief  Effects the Append operation
     void Append(ListNode<DataT>* current, const DataT& data)
     {
         ListNode<DataT>* newnode = new ListNode<DataT>(data);
@@ -330,6 +354,7 @@ private:
         return;
     }
 
+    //! \fn     Copy
     void Copy(const Slinky& other)
     {
         for (auto i = 0; i < other.Size(); ++i) {
@@ -337,7 +362,7 @@ private:
         }
     }
 
-
+    //! \fn     Copy
     void Copy(Slinky& other)
     {
         for (auto i = 0; i < other.Size(); ++i) {
