@@ -11,15 +11,7 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e660cd4d-a509-49e9-8e29-9c104ae22dfa" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../goflist/cmake-build-debug/CMakeFiles/goflist.dir/GoFListTest.cpp.o" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../goflist/cmake-build-debug/goflist" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../goflist/.idea/workspace.xml" afterPath="$PROJECT_DIR$/../goflist/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../goflist/GoFList.hpp" afterPath="$PROJECT_DIR$/../goflist/GoFList.hpp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../goflist/GoFListTest.cpp" afterPath="$PROJECT_DIR$/../goflist/GoFListTest.cpp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Slinky.hpp" afterPath="$PROJECT_DIR$/Slinky.hpp" />
-    </list>
+    <list default="true" id="e660cd4d-a509-49e9-8e29-9c104ae22dfa" name="Default" comment="" />
     <ignored path="$PROJECT_DIR$/cmake-build-debug/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -378,7 +370,7 @@
       <workItem from="1484336518985" duration="1029000" />
       <workItem from="1484873403582" duration="4695000" />
       <workItem from="1484938440499" duration="21276000" />
-      <workItem from="1485037988520" duration="3442000" />
+      <workItem from="1485037988520" duration="3506000" />
     </task>
     <task id="LOCAL-00001" summary="Checkpoint checkin for GoF List implementation">
       <created>1484956384338</created>
@@ -394,11 +386,18 @@
       <option name="project" value="LOCAL" />
       <updated>1484966022441</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="Revised move constructor/move assignment per SmartBear">
+      <created>1485047427094</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1485047427094</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="53945000" />
+    <option name="totallyTimeSpent" value="54009000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="65" y="24" width="1855" height="1176" extended-state="6" />
@@ -433,7 +432,8 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Checkpoint checkin for GoF List implementation" />
     <MESSAGE value="Completed support for GoF List implementation, added move constructor and move assignment operator" />
-    <option name="LAST_COMMIT_MESSAGE" value="Completed support for GoF List implementation, added move constructor and move assignment operator" />
+    <MESSAGE value="Revised move constructor/move assignment per SmartBear" />
+    <option name="LAST_COMMIT_MESSAGE" value="Revised move constructor/move assignment per SmartBear" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
