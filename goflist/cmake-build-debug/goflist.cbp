@@ -86,7 +86,13 @@
 				</MakeCommands>
 			</Target>
 		</Build>
+		<Unit filename="/home/norme/Projects/tdd-tutorials/goflist/GoFIterator.hpp">
+			<Option target="goflist"/>
+		</Unit>
 		<Unit filename="/home/norme/Projects/tdd-tutorials/goflist/GoFList.hpp">
+			<Option target="goflist"/>
+		</Unit>
+		<Unit filename="/home/norme/Projects/tdd-tutorials/goflist/GoFListIterator.hpp">
 			<Option target="goflist"/>
 		</Unit>
 		<Unit filename="/home/norme/Projects/tdd-tutorials/goflist/GoFListTest.cpp">

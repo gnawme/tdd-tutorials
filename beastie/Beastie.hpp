@@ -5,6 +5,7 @@
 #define BEASTIE_BEASTIE_HPP
 
 #include <iostream>
+#include <map>
 #include <vector>
 
 //! \class  BSTNode
@@ -38,6 +39,7 @@ public:
     //! \fn
     Beastie()
     : m_root_node(nullptr)
+    , m_num_paths(0)
     {}
 
     //! \fn
@@ -54,12 +56,22 @@ public:
         return Depth(m_root_node, depth);
     }
 
-    BSTNode<DataT>* GetRoot()
+    //! \fn     FindPaths
+    void FindPaths()
+    {
+        std::vector<DataT> path_values;
+        std::map<BSTNode<DataT>*, BSTNode<DataT>*> leaf_map;
+        FindPaths(m_root_node, path_values, leaf_map);
+    }
+
+    //! \fn     GetRoot
+    BSTNode<DataT>* GetRoot() const
     {
         return m_root_node;
     }
 
-    std::vector<DataT> GetTree()
+    //! \fn     GetTree
+    std::vector<DataT> GetTree() const
     {
         return m_tree;
     }
@@ -79,6 +91,12 @@ public:
     bool IsEmpty()
     {
         return (m_root_node == nullptr);
+    }
+
+    //! \fn     NumPaths
+    std::size_t NumPaths() const
+    {
+        return m_num_paths;
     }
 
     //! \fn     Search
@@ -175,6 +193,39 @@ private:
         delete root;
     }
 
+    //! \fn     FindPaths
+    void FindPaths(BSTNode<DataT>* root, std::vector<DataT>& path_values, std::map<BSTNode<DataT>*, BSTNode<DataT>*>& leaf_map)
+    {
+        if (root == nullptr) {
+            return;
+        }
+
+        path_values.push_back(root->key);
+
+        bool is_leaf = (root->left == nullptr && root->right == nullptr);
+        if (is_leaf) {
+            if (leaf_map.find(root) == leaf_map.end()) {
+                leaf_map.insert(std::pair<BSTNode<DataT>*, BSTNode<DataT>*>(root, root));
+                ++m_num_paths;
+                std::cout << "Path found: ";
+                for (auto path : path_values) {
+                    std::cout << path << " ";
+                }
+                std::cout << std::endl;
+            }
+        }
+
+        if (root->left != nullptr) {
+            FindPaths(root->left, path_values, leaf_map);
+        }
+
+        if (root->right != nullptr) {
+            FindPaths(root->right, path_values, leaf_map);
+        }
+
+        path_values.pop_back();
+    }
+
     //! \fn     Insert
     BSTNode<DataT>* Insert(BSTNode<DataT>* root, DataT value)
     {
@@ -219,6 +270,7 @@ private:
 
     BSTNode<DataT>* m_root_node;
     std::vector<DataT> m_tree;
+    std::size_t m_num_paths;
 };
 
 #endif //BEASTIE_BEASTIE_HPP

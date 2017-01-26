@@ -8,6 +8,8 @@
 #include <vector>
 
 #include <gmock/gmock.h>
+#include <memory>
+#include <set>
 
 //! \fn     AckermannFn
 //! \brief  Computes Ackermann's function recursively
@@ -81,6 +83,38 @@ bool FindPalind(std::string &jumble)
     return (numOdds <= 1);
 }
 
+//! \fn     FindUnicornCharacters
+//! brief   Finds characters in a string that occur only once
+std::vector<char> FindUnicornCharacters(const char* instr, bool findall)
+{
+    if (instr == nullptr) {
+        return std::vector<char>();
+    }
+
+    std::string instring(instr);
+    std::multiset<char> charmap;
+
+    for (auto achar : instring) {
+        charmap.insert(achar);
+    }
+
+    bool first = true;
+    std::vector<char> unicorns;
+    for (auto inmap : charmap) {
+        if (charmap.count(inmap) == 1) {
+            unicorns.push_back(inmap);
+
+            if (!findall && first) {
+                return unicorns;
+            }
+
+            first = false;
+        }
+    }
+
+    return unicorns;
+}
+
 //! \fn     Reversi
 //! \brief  Reverses a character string in-place
 char* Reversi(char* instr)
@@ -146,8 +180,8 @@ TEST(Ackermann, TestRecursiveAckermannFunction) {
     EXPECT_EQ(AckermannFn(1, 0), AckermannFn(0, 1));
 }
 
-//! \test   VerifyBaseConversionsToBase2
-TEST(ToBase, VerifyBaseConversionsToBase2) {
+//! \test   VerifyBaseConversionsToCommonBases
+TEST(ToBase, VerifyBaseConversionsToCommonBases) {
     std::map<int, char> binmap{
         {0, '0'}, {1, '1'}
     };
@@ -171,6 +205,24 @@ TEST(ToBase, VerifyBaseConversionsToBase2) {
     }
 }
 
+//! \test   FirstLetterThatOccursOnlyOnceShouldBeB
+TEST(Uneekorn, FirstLetterThatOccursOnlyOnceShouldBeB) {
+    std::vector<char> expected{'b'};
+    std::vector<char> compare = FindUnicornCharacters("abaccdeff", false);
+    EXPECT_THAT(compare, ::testing::ContainerEq(expected));
+
+}
+
+//! \test   LettersThatOccurOnlyOnceShouldBeBD
+TEST(Uneekorn, LettersThatOccurOnlyOnceShouldBeBD) {
+    std::vector<char> expected{'b', 'd'};
+    std::vector<char> compare = FindUnicornCharacters("acbacdeffe", true);
+    EXPECT_THAT(compare, ::testing::ContainerEq(expected));
+
+}
+
+
+//! \fn     main
 int main(int argc, char** argv)
 {
     testing::InitGoogleTest(&argc, argv);

@@ -159,6 +159,21 @@ TEST_F(BeastieTest, InorderTraversalShouldBeSameAsSorted) {
     EXPECT_THAT(compare, ::testing::ContainerEq(sorted));
 }
 
+//! \test   NumberOfPathsInEmptyListShouldBeZero
+TEST_F(BeastieTest, NumberOfPathsInEmptyListShouldBeZero) {
+    EXPECT_EQ(0, beastie.NumPaths());
+}
+
+//! \test   NumberOfPathsInSimpleTreeShouldBeGreaterThanZero
+TEST_F(BeastieTest, NumberOfPathsInSimpleTreeShouldBeGreaterThanZero) {
+    for (auto value : simple) {
+        beastie.Insert(value);
+    }
+
+    beastie.FindPaths();
+    EXPECT_TRUE(beastie.NumPaths() > 0);
+}
+
 //! \fn     main
 int main(int argc, char** argv) {
     testing::InitGoogleTest(&argc, argv);
