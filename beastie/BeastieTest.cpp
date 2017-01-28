@@ -61,44 +61,42 @@ TEST_F(BeastieTest, TreeShouldNotBeEmptyAfterInsertion) {
 
 //! \test   TreeShouldNotBeEmptyAfterMultipleInsertions
 TEST_F(BeastieTest, TreeShouldNotBeEmptyAfterMultipleInsertions) {
-    for (auto value : fibos) {
-        beastie.Insert(value);
+    for (auto key : fibos) {
+        beastie.Insert(key);
     }
     EXPECT_FALSE(beastie.IsEmpty());
 }
 
 //! \test   SimpleInorderTraversalShouldYieldExpected
 TEST_F(BeastieTest, SimpleInorderTraversalShouldYieldExpected) {
-    for (auto value : simple) {
-        beastie.Insert(value);
+    for (auto key : simple) {
+        beastie.Insert(key);
     }
 
     beastie.TraverseInorder(beastie.GetRoot());
 
     std::vector<int> expected{0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
     std::vector<int> compare = beastie.GetTree();
-    std::cout << std::endl;
     EXPECT_THAT(compare, ::testing::ContainerEq(expected));
 }
 
 //! \test   SimplePreorderTraversalShouldYieldExpected
 TEST_F(BeastieTest, SimplePreorderTraversalShouldYieldExpected) {
-    for (auto value : simple) {
-        beastie.Insert(value);
+    for (auto key : simple) {
+        beastie.Insert(key);
     }
 
     beastie.TraversePreorder(beastie.GetRoot());
 
     std::vector<int> expected{7, 1, 0, 3, 2, 5, 4, 6, 9, 8, 10};
     std::vector<int> compare = beastie.GetTree();
-    std::cout << std::endl;
     EXPECT_THAT(compare, ::testing::ContainerEq(expected));
 }
 
 //! \test   SimplePostorderTraversalShouldYieldExpected
 TEST_F(BeastieTest, SimplePostorderTraversalShouldYieldExpected) {
-    for (auto value : simple) {
-        beastie.Insert(value);
+    for (auto key : simple) {
+        beastie.Insert(key);
     }
 
     beastie.TraversePostorder(beastie.GetRoot());
@@ -110,8 +108,8 @@ TEST_F(BeastieTest, SimplePostorderTraversalShouldYieldExpected) {
 
 //! \test   TreeShouldBeEmptyAfterClear
 TEST_F(BeastieTest, TreeShouldBeEmptyAfterClear) {
-    for (auto value : simple) {
-        beastie.Insert(value);
+    for (auto key : simple) {
+        beastie.Insert(key);
     }
 
     beastie.Clear();
@@ -120,8 +118,8 @@ TEST_F(BeastieTest, TreeShouldBeEmptyAfterClear) {
 
 //! \test   SearchForValueInTreeShouldReturnNode
 TEST_F(BeastieTest, SearchForValueInTreeShouldReturnNode) {
-    for (auto value : fibos) {
-        beastie.Insert(value);
+    for (auto key : fibos) {
+        beastie.Insert(key);
     }
 
     BSTNode<int>* node = beastie.Search(55);
@@ -130,8 +128,8 @@ TEST_F(BeastieTest, SearchForValueInTreeShouldReturnNode) {
 
 //! \test   SearchForValueNotInTreeShouldReturnNull
 TEST_F(BeastieTest, SearchForValueNotInTreeShouldReturnNull) {
-    for (auto value : fibos) {
-        beastie.Insert(value);
+    for (auto key : fibos) {
+        beastie.Insert(key);
     }
 
     BSTNode<int>* node = beastie.Search(42);
@@ -140,8 +138,8 @@ TEST_F(BeastieTest, SearchForValueNotInTreeShouldReturnNull) {
 
 //! \test   DepthOfTreeShouldBeGreaterThanOne
 TEST_F(BeastieTest, DepthOfTreeShouldBeGreaterThanOne) {
-    for (auto value : simple) {
-        beastie.Insert(value);
+    for (auto key : simple) {
+        beastie.Insert(key);
     }
 
     int depth = beastie.Depth();
@@ -166,12 +164,73 @@ TEST_F(BeastieTest, NumberOfPathsInEmptyListShouldBeZero) {
 
 //! \test   NumberOfPathsInSimpleTreeShouldBeGreaterThanZero
 TEST_F(BeastieTest, NumberOfPathsInSimpleTreeShouldBeGreaterThanZero) {
-    for (auto value : simple) {
-        beastie.Insert(value);
+    for (auto key : simple) {
+        beastie.Insert(key);
     }
 
     beastie.FindPaths();
     EXPECT_TRUE(beastie.NumPaths() > 0);
+}
+
+//! \test   CopyConstructorShouldReturnIdenticalTree
+TEST_F(BeastieTest, CopyConstructorShouldReturnIdenticalTree) {
+    for (auto key : simple) {
+        beastie.Insert(key);
+    }
+
+    beastie.TraversePreorder(beastie.GetRoot());
+    std::vector<int> compare = beastie.GetTree();
+
+    Beastie<int> bestie(beastie);
+    bestie.TraversePreorder(bestie.GetRoot());
+
+    EXPECT_THAT(compare, ::testing::ContainerEq(bestie.GetTree()));
+}
+
+//! \test   AssignmentOperatorShouldReturnIdenticalTree
+TEST_F(BeastieTest, AssignmentOperatorShouldReturnIdenticalTree) {
+    for (auto key : fibos) {
+        beastie.Insert(key);
+    }
+
+    beastie.TraversePreorder(beastie.GetRoot());
+    std::vector<int> compare = beastie.GetTree();
+
+    Beastie<int> bestie = beastie;
+    bestie.TraversePreorder(bestie.GetRoot());
+
+    EXPECT_THAT(compare, ::testing::ContainerEq(bestie.GetTree()));
+}
+
+//! \test   MoveConstructorShouldReturnIdenticalTree
+TEST_F(BeastieTest, MoveConstructorShouldReturnIdenticalTree) {
+    for (auto key : fibos) {
+        beastie.Insert(key);
+    }
+
+    beastie.TraversePreorder(beastie.GetRoot());
+    std::vector<int> compare = beastie.GetTree();
+
+    Beastie<int> bestie(std::move(beastie));
+    bestie.TraversePreorder(bestie.GetRoot());
+
+    EXPECT_THAT(compare, ::testing::ContainerEq(bestie.GetTree()));
+}
+
+//! \test   MoveAssignmentOperatorShouldReturnIdenticalTree
+TEST_F(BeastieTest, MoveAssignmentOperatorShouldReturnIdenticalTree) {
+    for (auto key : fibos) {
+        beastie.Insert(key);
+    }
+
+    beastie.TraversePreorder(beastie.GetRoot());
+    std::vector<int> compare = beastie.GetTree();
+
+    Beastie<int> bestie = std::move(beastie);
+    bestie.TraversePreorder(bestie.GetRoot());
+
+    EXPECT_THAT(compare, ::testing::ContainerEq(bestie.GetTree()));
+
 }
 
 //! \fn     main

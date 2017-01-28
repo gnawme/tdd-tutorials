@@ -12,8 +12,8 @@
 template<typename DataT>
 struct BSTNode
 {
-    BSTNode(DataT value)
-    : key(value)
+    BSTNode(DataT key)
+    : key(key)
     , left(nullptr)
     , right(nullptr)
     {}
@@ -43,10 +43,74 @@ public:
     {}
 
     //! \fn
+    Beastie(const Beastie& other)
+    : m_root_node(nullptr)
+    , m_num_paths(0)
+    {
+        Copy(other);
+    }
+
+    //! \fn
+    Beastie& operator=(const Beastie& other)
+    {
+        if (&other != this) {
+            Clear();
+            Copy(other);
+        }
+    }
+
+    //! Move constructor
+    //! \see    http://blog.smartbear.com/c-plus-plus/c11-tutorial-introducing-the-move-constructor-and-the-move-assignment-operator/
+    Beastie(Beastie&& other)
+    : m_root_node(nullptr)
+    , m_num_paths(0)
+    {
+        // Pilfer other's resources
+        m_root_node = new BSTNode<DataT>(other.m_root_node->key);
+        m_root_node->left = other.m_root_node->left;
+        m_root_node->right = other.m_root_node->right;
+
+        // Reset other to default state
+        other.m_root_node = nullptr;
+        other.m_num_paths = 0;
+    }
+
+    //! Move assignment operator
+    //! \see    http://blog.smartbear.com/c-plus-plus/c11-tutorial-introducing-the-move-constructor-and-the-move-assignment-operator/
+    Beastie& operator=(Beastie&& other)
+    {
+        if (&other != this) {
+            // Release the current object's resources
+            Clear();
+
+            // Pilfer other's resources
+            m_root_node = new BSTNode<DataT>(other.m_root_node->key);
+            m_root_node->left = other.m_root_node->left;
+            m_root_node->right = other.m_root_node->right;
+
+            // Reset other to default state
+            other.m_root_node = nullptr;
+            other.m_num_paths = 0;
+        }
+
+        return *this;
+    }
+
+    //! \fn     Clear
     void Clear()
     {
         DoClear(m_root_node);
         m_root_node = nullptr;
+    }
+
+    //! \fn     Copy
+    void Copy(const Beastie& other)
+    {
+        other.TraversePreorder(other.GetRoot());
+        std::vector<DataT> contents{other.GetTree()};
+        for (auto node : contents) {
+            Insert(node);
+        }
     }
 
     //! \fn     Depth
@@ -77,13 +141,13 @@ public:
     }
 
     //! \fn     Insert
-    BSTNode<DataT>* Insert(DataT value)
+    BSTNode<DataT>* Insert(DataT key)
     {
         if (m_root_node == nullptr) {
-            m_root_node = new BSTNode<DataT>(value);
+            m_root_node = new BSTNode<DataT>(key);
             return m_root_node;
         } else {
-            return Insert(m_root_node, value);
+            return Insert(m_root_node, key);
         }
     }
 
@@ -108,7 +172,7 @@ public:
     //! \fn     TraverseInorder
     //! \brief  Inorder traversal: left-root-right
     //! \note   Use inorder to output nodes in a non-decreasing order
-    void TraverseInorder(BSTNode<DataT>* root)
+    void TraverseInorder(BSTNode<DataT>* root) const
     {
         if (root == nullptr) {
             return;
@@ -126,7 +190,7 @@ public:
     //! \fn     TraversePostorder
     //! \brief  Postorder traversal: left-right-root
     //! \note   Use postorder to delete the tree
-    void TraversePostorder(BSTNode<DataT>* root)
+    void TraversePostorder(BSTNode<DataT>* root) const
     {
         if (root == nullptr) {
             return;
@@ -144,7 +208,7 @@ public:
     //! \fn     TraversePreorder
     //! \brief  Preorder traversal: root-left-right
     //! \note   Use preorder to make a copy of the tree
-    void TraversePreorder(BSTNode<DataT>* root)
+    void TraversePreorder(BSTNode<DataT>* root) const
     {
         if (root == nullptr) {
             return;
@@ -227,21 +291,21 @@ private:
     }
 
     //! \fn     Insert
-    BSTNode<DataT>* Insert(BSTNode<DataT>* root, DataT value)
+    BSTNode<DataT>* Insert(BSTNode<DataT>* root, DataT key)
     {
-        if (value < root->key) {
+        if (key < root->key) {
             if (root->left == nullptr) {
-                root->left = new BSTNode<DataT>(value);
+                root->left = new BSTNode<DataT>(key);
                 return root->left;
             } else {
-                Insert(root->left, value);
+                Insert(root->left, key);
             }
         } else {
             if (root->right == nullptr) {
-                root->right = new BSTNode<DataT>(value);
+                root->right = new BSTNode<DataT>(key);
                 return root->right;
             } else {
-                Insert(root->right, value);
+                Insert(root->right, key);
             }
         }
     }
@@ -263,14 +327,14 @@ private:
     }
 
     //! \fn     Visit
-    void Visit(BSTNode<DataT>* root)
+    void Visit(BSTNode<DataT>* root) const
     {
         m_tree.push_back(root->key);
     }
 
     BSTNode<DataT>* m_root_node;
-    std::vector<DataT> m_tree;
-    std::size_t m_num_paths;
+    mutable std::vector<DataT> m_tree;
+    mutable std::size_t m_num_paths;
 };
 
 #endif //BEASTIE_BEASTIE_HPP

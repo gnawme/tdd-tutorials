@@ -12,22 +12,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ea9c3b17-ffd9-416d-adb6-2d7d567e29c9" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../goflist/GoFIterator.hpp" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../goflist/GoFListIterator.hpp" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../prime-factors/.idea/misc.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/../prime-factors/PrimeFactors.hpp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../beastie/.idea/workspace.xml" afterPath="$PROJECT_DIR$/../beastie/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../beastie/Beastie.hpp" afterPath="$PROJECT_DIR$/../beastie/Beastie.hpp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../beastie/BeastieTest.cpp" afterPath="$PROJECT_DIR$/../beastie/BeastieTest.cpp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../beastie/cmake-build-debug/CMakeFiles/beastie.dir/CXX.includecache" afterPath="$PROJECT_DIR$/../beastie/cmake-build-debug/CMakeFiles/beastie.dir/CXX.includecache" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../goflist/.idea/workspace.xml" afterPath="$PROJECT_DIR$/../goflist/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../goflist/CMakeLists.txt" afterPath="$PROJECT_DIR$/../goflist/CMakeLists.txt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../goflist/cmake-build-debug/goflist.cbp" afterPath="$PROJECT_DIR$/../goflist/cmake-build-debug/goflist.cbp" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/miscellar.dir/CXX.includecache" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/miscellar.dir/CXX.includecache" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/main.cpp" afterPath="$PROJECT_DIR$/main.cpp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../slinky/.idea/workspace.xml" afterPath="$PROJECT_DIR$/../slinky/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../slinky/Slinky.hpp" afterPath="$PROJECT_DIR$/../slinky/Slinky.hpp" />
     </list>
     <ignored path="$PROJECT_DIR$/cmake-build-debug/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -329,7 +314,7 @@
       <workItem from="1484853764276" duration="5000" />
       <workItem from="1484864537639" duration="30000" />
       <workItem from="1485215201991" duration="2319000" />
-      <workItem from="1485388555410" duration="2031000" />
+      <workItem from="1485388555410" duration="2695000" />
     </task>
     <task id="LOCAL-00001" summary="Fixed failing string reversal">
       <created>1484612799389</created>
@@ -338,11 +323,18 @@
       <option name="project" value="LOCAL" />
       <updated>1484612799389</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="Added BST path and find first unique character interview problems">
+      <created>1485390650555</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1485390650555</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="30060000" />
+    <option name="totallyTimeSpent" value="30724000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="65" y="24" width="1855" height="1176" extended-state="6" />
@@ -358,7 +350,7 @@
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -376,7 +368,8 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Fixed failing string reversal" />
-    <option name="LAST_COMMIT_MESSAGE" value="Fixed failing string reversal" />
+    <MESSAGE value="Added BST path and find first unique character interview problems" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added BST path and find first unique character interview problems" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

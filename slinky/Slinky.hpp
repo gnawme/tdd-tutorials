@@ -55,9 +55,7 @@ public:
     }
 
     //! Move constructor
-    //! \see    http://blog.smartbear.com/c-plus-plu
-    //!
-    //! s/c11-tutorial-introducing-the-move-constructor-and-the-move-assignment-operator/
+    //! \see    http://blog.smartbear.com/c-plus-plus/c11-tutorial-introducing-the-move-constructor-and-the-move-assignment-operator/
     Slinky(Slinky&& other)
     : m_head(new ListNode<DataT>)
     , m_size(other.m_size)

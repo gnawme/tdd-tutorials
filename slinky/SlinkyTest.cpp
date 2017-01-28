@@ -244,6 +244,17 @@ TEST_F(SlinkyTest, AssignmentOperatorShouldReturnIdenticalList) {
     EXPECT_THAT(original, ::testing::Eq(clonewars));
 }
 
+//! \test   MoveConstructorShouldReturnIdenticalList
+TEST_F(SlinkyTest, MoveConstructorShouldReturnIdenticalList) {
+    InsertNATO(5);
+    TStringVec original = slinky.PrintList();
+
+    Slinky<std::string> clone(std::move(slinky));
+    TStringVec clonewars = clone.PrintList();
+
+    EXPECT_THAT(original, ::testing::Eq(clonewars));
+}
+
 //! \test   MoveAssignmentOperatorShouldReturnIdenticalList
 TEST_F(SlinkyTest, MoveAssignmentOperatorShouldReturnIdenticalList) {
     InsertNATO(5);
