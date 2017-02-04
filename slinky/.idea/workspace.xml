@@ -12,15 +12,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="e660cd4d-a509-49e9-8e29-9c104ae22dfa" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../prime-factors/.idea/misc.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/../prime-factors/PrimeFactors.hpp" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../beastie/.idea/workspace.xml" afterPath="$PROJECT_DIR$/../beastie/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../beastie/Beastie.hpp" afterPath="$PROJECT_DIR$/../beastie/Beastie.hpp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../beastie/BeastieTest.cpp" afterPath="$PROJECT_DIR$/../beastie/BeastieTest.cpp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../miscellar/.idea/workspace.xml" afterPath="$PROJECT_DIR$/../miscellar/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Slinky.hpp" afterPath="$PROJECT_DIR$/Slinky.hpp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/SlinkyTest.cpp" afterPath="$PROJECT_DIR$/SlinkyTest.cpp" />
     </list>
     <ignored path="$PROJECT_DIR$/cmake-build-debug/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -373,7 +365,7 @@
       <workItem from="1484938440499" duration="21276000" />
       <workItem from="1485037988520" duration="4097000" />
       <workItem from="1485193874698" duration="2841000" />
-      <workItem from="1485553367933" duration="3199000" />
+      <workItem from="1485553367933" duration="3663000" />
     </task>
     <task id="LOCAL-00001" summary="Checkpoint checkin for GoF List implementation">
       <created>1484956384338</created>
@@ -400,7 +392,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="60640000" />
+    <option name="totallyTimeSpent" value="61104000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="65" y="24" width="1855" height="1176" extended-state="6" />
