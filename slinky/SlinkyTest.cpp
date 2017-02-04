@@ -106,6 +106,16 @@ TEST_F(SlinkyTest, ListContentsAfterReversalShouldBeCharlieBravoAlfa) {
     EXPECT_THAT(cba, ::testing::Eq(expected));
 }
 
+//! \test   ListContentsAfterRecursiveReversalShouldBeCharlieBravoAlfa
+TEST_F(SlinkyTest, ListContentsAfterRecursiveReversalShouldBeCharlieBravoAlfa) {
+    InsertNATO(3);
+
+    TStringVec expected{natos[2], natos[1], natos[0]};
+    slinky.Reverse();
+    TStringVec cba = slinky.PrintList();
+    EXPECT_THAT(cba, ::testing::Eq(expected));
+}
+
 //! \test   GetFromIndex1ShouldReturnBravo
 TEST_F(SlinkyTest, GetFromIndex1ShouldReturnBravo) {
     InsertNATO(3);

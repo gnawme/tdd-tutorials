@@ -232,6 +232,24 @@ std::vector<char> FindUnicornCharacters(const char* instr, bool findall)
     return unicorns;
 }
 
+//! \fn     JumpOverNumbers
+//! \brief
+int JumpOverNumbers(std::vector<int>& list)
+{
+    int num_jumps = 0;
+    int place = 0;
+    while (place < list.size()) {
+        if (list[place] == 0) {
+            return -1;
+        }
+
+        place += list[place];
+        ++num_jumps;
+    }
+
+    return num_jumps;
+}
+
 //! \fn     Reversi
 //! \brief  Reverses a character string in-place
 char* Reversi(char* instr)
@@ -387,6 +405,16 @@ TEST(RunningMedian, RunningMedianHeapShouldMatchTestData) {
         EXPECT_EQ(medians[i], median);
     }
 
+}
+
+//! \test   ListJumperShouldReturn4
+TEST(Jumper, ListJumperShouldReturn4) {
+    std::vector<int> test_list{
+        3, 4, 1, 2, 5, 6, 9, 0, 1, 2, 3, 1
+    };
+
+    auto num_jumps = JumpOverNumbers(test_list);
+    EXPECT_EQ(4, num_jumps);
 }
 
 //! \fn     main

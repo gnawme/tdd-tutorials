@@ -306,6 +306,18 @@ public:
         }
     }
 
+    //! \fn     Reverse
+    //! \brief  Recursive list reversal
+    void Reverse()
+    {
+        if (!IsEmpty()) {
+            ListNode<DataT>* new_head = DoReverse(m_head->next, m_head);
+            // Terminate new tail, point to new head
+            m_head->next->next = nullptr;
+            m_head->next = new_head;
+        }
+    }
+
     //! \fn     ReverseList
     //! \brief  Interview practice problem
     void ReverseList()
@@ -367,6 +379,21 @@ private:
     {
         for (auto i = 0; i < other.Size(); ++i) {
             Append(other.Get(i));
+        }
+    }
+
+    //! \fn     DoReverse
+    ListNode<DataT>* DoReverse(ListNode<DataT>* current, ListNode<DataT>* previous)
+    {
+        ListNode<DataT>* temp = current;
+        if (temp->next == nullptr) {
+            // At end of list, start reversing links
+            temp->next = previous;
+            return temp;
+        } else {
+            temp = DoReverse(current->next, current);
+            current->next = previous;
+            return temp;
         }
     }
 
