@@ -281,12 +281,20 @@ TEST_F(SlinkyTest, MoveAssignmentOperatorShouldReturnIdenticalList) {
     EXPECT_THAT(original, ::testing::Eq(clonewars));
 }
 
-//! \fn     RemoveAllShouldLeaveEmptyList
+//! \test   RemoveAllShouldLeaveEmptyList
 TEST_F(SlinkyTest, RemoveAllShouldLeaveEmptyList) {
     InsertNATO(5);
     slinky.RemoveAll();
 
     EXPECT_TRUE(slinky.IsEmpty());
+}
+
+//! \test   SearchForEchoShouldReturnEcho
+TEST_F(SlinkyTest, SearchForEchoShouldReturnEcho) {
+    InsertNATO(8);
+    ListNode<std::string>* echo = slinky.Search(std::string("echo"));
+
+    EXPECT_EQ(std::string("echo"), echo->data);
 }
 
 //! \fn     main

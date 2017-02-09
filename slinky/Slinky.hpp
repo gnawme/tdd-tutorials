@@ -236,7 +236,7 @@ public:
                 }
             }
         } else {
-            throw std::out_of_range("Slinky::First: list is empty");
+            throw std::out_of_range("Slinky::Last: list is empty");
         }
     }
 
@@ -349,6 +349,12 @@ public:
         }
     }
 
+    //! \fn     Search
+    ListNode<DataT>* Search(const DataT& data)
+    {
+        return DoSearch(m_head->next, data);
+    }
+
     //! \fn     Size
     std::size_t Size() const
     {
@@ -394,6 +400,20 @@ private:
             temp = DoReverse(current->next, current);
             current->next = previous;
             return temp;
+        }
+    }
+
+    //! \fn     DoSearch
+    ListNode<DataT>* DoSearch(ListNode<DataT>* node, const DataT& data)
+    {
+        if (node == nullptr) {
+            return nullptr;
+        }
+
+        if (node->data == data) {
+            return node;
+        } else {
+            return DoSearch(node->next, data);
         }
     }
 
