@@ -5,9 +5,11 @@
 #ifndef GRAPHIS_GRAPHIS_HPP
 #define GRAPHIS_GRAPHIS_HPP
 
+#include <iomanip>
 #include <iostream>
 #include <list>
 #include <map>
+#include <queue>
 #include <vector>
 
 //! \struct AdjacencyNode
@@ -47,6 +49,9 @@ using EdgeList = std::map<DataT, AdjacencyList<DataT>>;
 template<typename DataT>
 using DegreeList = std::map<DataT, int>;
 
+template<typename DataT>
+using TraversedList = std::map<DataT, bool>;
+
 //! class   Graphis
 template<typename DataT>
 class Graphis
@@ -76,6 +81,35 @@ public:
         if (!m_is_directed) {
             DoAddEdge(dst, src);
         }
+    }
+
+    //! \fn     BreadthFirstSearch
+    //! \see    http://www.geeksforgeeks.org/breadth-first-traversal-for-a-graph/
+    std::vector<DataT> BreadthFirstSearch(DataT vertex)
+    {
+        TraversedList<DataT> discovered;
+        InitSearch(discovered);
+
+        std::queue<DataT> kew;
+        discovered[vertex] = true;
+        kew.push(vertex);
+
+        std::vector<DataT> bfs;
+        while (!kew.empty()) {
+            DataT current_vertex = kew.front();
+            bfs.push_back(current_vertex);
+            kew.pop();
+
+            std::vector<DataT> adjlist = GetAdjacencyList(current_vertex);
+            for (auto vert : adjlist) {
+                if (discovered.at(vert) == false) {
+                    discovered.at(vert) = true;
+                    kew.push(vert);
+                }
+            }
+        }
+
+        return bfs;
     }
 
     //! \fn     IsDirected
@@ -131,6 +165,26 @@ public:
         return verts;
     }
 
+    //! \fn     PrintGraph
+    void PrintGraph() const
+    {
+        std::cout << "Graph   : " << (m_is_directed ? "Directed" : "Undirected") << std::endl;
+        std::cout << "Vertices: " << m_num_vertices << std::endl;
+        std::cout << "Edges   : " << m_num_edges << std::endl;
+
+        std::vector<DataT> verts = GetVertexList();
+        for (auto vert : verts) {
+            std::cout << std::setw(8) << vert << ": ";
+            std::vector<DataT> adjlist = GetAdjacencyList(vert);
+            for (auto adj : adjlist) {
+                std::cout << adj << " ";
+            }
+
+            std::cout << std::endl;
+            std::cout << "Degree  : " << m_degrees.at(vert) << std::endl;
+        }
+    }
+
 private:
     //! \fn     DoAddEdge
     //! \brief  Adds an edge from src to dst; src is the key, all edges from it reside in its edge list
@@ -155,6 +209,16 @@ private:
         ++m_degrees[src];
         m_edges[src].push_front(dstnode);
         ++m_num_edges;
+    }
+
+    //! \fn     InitSearch
+    void InitSearch(TraversedList<DataT>& discovered)
+    {
+        std::vector<DataT> vertices = GetVertexList();
+        for (auto vert : vertices) {
+            std::pair<DataT, bool> init(vert, false);
+            discovered.insert(init);
+        }
     }
 
     int m_num_vertices;
