@@ -10,6 +10,7 @@
 #include <list>
 #include <map>
 #include <queue>
+#include <stack>
 #include <vector>
 
 //! \struct AdjacencyNode
@@ -50,7 +51,10 @@ template<typename DataT>
 using DegreeList = std::map<DataT, int>;
 
 template<typename DataT>
-using TraversedList = std::map<DataT, bool>;
+using TraversedList = std::map<DataT, VisitedState>;
+
+template<typename DataT>
+using ParentList = std::map<DataT, DataT>;
 
 //! class   Graphis
 template<typename DataT>
@@ -85,26 +89,31 @@ public:
 
     //! \fn     BreadthFirstSearch
     //! \see    http://www.geeksforgeeks.org/breadth-first-traversal-for-a-graph/
-    std::vector<DataT> BreadthFirstSearch(DataT vertex)
+    std::vector<DataT> BreadthFirstSearch(DataT root)
     {
         TraversedList<DataT> discovered;
         InitSearch(discovered);
 
         std::queue<DataT> kew;
-        discovered[vertex] = true;
-        kew.push(vertex);
+        discovered[root] = e_discovered;
+        kew.push(root);
 
         std::vector<DataT> bfs;
         while (!kew.empty()) {
             DataT current_vertex = kew.front();
             bfs.push_back(current_vertex);
             kew.pop();
+            discovered.at(current_vertex) = e_processed;
 
             std::vector<DataT> adjlist = GetAdjacencyList(current_vertex);
             for (auto vert : adjlist) {
-                if (discovered.at(vert) == false) {
-                    discovered.at(vert) = true;
+                if ((discovered.at(vert) != e_processed) || IsDirected()) {
+                }
+
+                if (discovered.at(vert) == e_undiscovered) {
+                    discovered.at(vert) = e_discovered;
                     kew.push(vert);
+                    m_parents.insert(std::make_pair(vert, current_vertex));
                 }
             }
         }
@@ -112,16 +121,25 @@ public:
         return bfs;
     }
 
-    //! \fn     IsDirected
-    bool IsDirected() const
+    //! \fn     DepthFirstSearch
+    std::vector<DataT> DepthFirstSearch(DataT root)
     {
-        return m_is_directed;
+        TraversedList<DataT> discovered;
+        InitSearch(discovered);
+        std::vector<DataT> dfs;
+        return DoDepthFirstSearch(root, discovered, dfs);
     }
 
-    //! \fn     IsEmpty
-    bool IsEmpty() const
+    //! \fn     FindPath
+    void FindPath(DataT start, DataT end, std::stack<DataT>& path)
     {
-        return (m_num_vertices == 0);
+        auto pend = m_parents.find(end);
+        if ((start == end) || (pend == m_parents.end())) {
+            path.push(start);
+        } else {
+            path.push(end);
+            FindPath(start, m_parents.at(end), path);
+        }
     }
 
     //! \fn     GetAdjacencyList
@@ -165,6 +183,18 @@ public:
         return verts;
     }
 
+    //! \fn     IsDirected
+    bool IsDirected() const
+    {
+        return m_is_directed;
+    }
+
+    //! \fn     IsEmpty
+    bool IsEmpty() const
+    {
+        return (m_num_vertices == 0);
+    }
+
     //! \fn     PrintGraph
     void PrintGraph() const
     {
@@ -183,6 +213,12 @@ public:
             std::cout << std::endl;
             std::cout << "Degree  : " << m_degrees.at(vert) << std::endl;
         }
+    }
+
+    //! \fn     SetDirected
+    void SetDirected(bool is_directed)
+    {
+        m_is_directed = is_directed;
     }
 
 private:
@@ -211,12 +247,28 @@ private:
         ++m_num_edges;
     }
 
+    //! \fn     DoDepthFirstSearch
+    std::vector<DataT> DoDepthFirstSearch(DataT root, TraversedList<DataT>& discovered, std::vector<DataT>& dfs)
+    {
+        discovered[root] = e_undiscovered;
+        dfs.push_back(root);
+
+        std::vector<DataT> adjlist = GetAdjacencyList(root);
+        for (auto vert : adjlist) {
+            if (discovered[root] == e_undiscovered) {
+                DoDepthFirstSearch(vert, discovered, dfs);
+            }
+        }
+    }
+
+
     //! \fn     InitSearch
     void InitSearch(TraversedList<DataT>& discovered)
     {
+        m_parents.clear();
         std::vector<DataT> vertices = GetVertexList();
         for (auto vert : vertices) {
-            std::pair<DataT, bool> init(vert, false);
+            std::pair<DataT, VisitedState> init(vert, e_undiscovered);
             discovered.insert(init);
         }
     }
@@ -226,6 +278,7 @@ private:
     bool m_is_directed;
     EdgeList<DataT> m_edges;
     DegreeList<DataT> m_degrees;
+    ParentList<DataT> m_parents;
 };
 
 #endif //GRAPHIS_GRAPHIS_HPP
