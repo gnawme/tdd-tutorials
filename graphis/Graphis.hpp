@@ -56,6 +56,9 @@ using TraversedList = std::map<DataT, VisitedState>;
 template<typename DataT>
 using ParentList = std::map<DataT, DataT>;
 
+template<typename DataT>
+using ComponentList = std::map<int, std::vector<DataT>>;
+
 //! class   Graphis
 template<typename DataT>
 class Graphis
@@ -88,14 +91,11 @@ public:
     }
 
     //! \fn     BreadthFirstSearch
-    //! \see    http://www.geeksforgeeks.org/breadth-first-traversal-for-a-graph/
-    std::vector<DataT> BreadthFirstSearch(DataT root)
+    //! \brief  Uses external TraversedList
+    std::vector<DataT> BreadthFirstSearch(DataT root, TraversedList<DataT>& discovered)
     {
-        TraversedList<DataT> discovered;
-        InitSearch(discovered);
-
         std::queue<DataT> kew;
-        discovered[root] = e_discovered;
+        discovered.at(root) = e_discovered;
         kew.push(root);
 
         std::vector<DataT> bfs;
@@ -119,6 +119,36 @@ public:
         }
 
         return bfs;
+    }
+
+    //! \fn     BreadthFirstSearch
+    //! \see    http://www.geeksforgeeks.org/breadth-first-traversal-for-a-graph/ or http://www.algorist.com/
+    std::vector<DataT> BreadthFirstSearch(DataT root)
+    {
+        TraversedList<DataT> discovered;
+        InitSearch(discovered);
+        return BreadthFirstSearch(root, discovered);
+    }
+
+    //! \fn     ConnectedComponents
+    ComponentList<DataT> ConnectedComponents()
+    {
+        TraversedList<DataT> discovered;
+        InitSearch(discovered);
+
+        auto component_num = 0;
+        ComponentList<DataT> components;
+
+        std::vector<DataT> vertices = GetVertexList();
+        for (auto vert : vertices) {
+            if (discovered.at(vert) == e_undiscovered) {
+                ++component_num;
+                std::vector<DataT> bfs = BreadthFirstSearch(vert, discovered);
+                components.insert(std::make_pair(component_num, bfs));
+            }
+        }
+
+        return components;
     }
 
     //! \fn     DepthFirstSearch
