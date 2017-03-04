@@ -42,6 +42,9 @@ enum VisitedState
 };
 
 template<typename DataT>
+class Graphis;
+
+template<typename DataT>
 using AdjacencyList = std::list<AdjacencyNode<DataT>>;
 
 template<typename DataT>
@@ -59,6 +62,30 @@ using ParentList = std::map<DataT, DataT>;
 template<typename DataT>
 using ComponentList = std::map<int, std::vector<DataT>>;
 
+template<typename DataT>
+using EntryList = std::map<DataT, std::pair<int, int>>;
+
+template<typename DataT>
+using ProcVertexFn = void (*)(Graphis<DataT>&, DataT);
+
+template<typename DataT>
+using ProcEdgeFn = void (*)(Graphis<DataT>&, DataT, DataT);
+
+//! fn      ProcessVertexEarly
+template<typename DataT>
+void ProcessVertexEarly(Graphis<DataT>& graph, DataT vertex)
+{}
+
+//! fn      ProcessVertexLate
+template<typename DataT>
+void ProcessVertexLate(Graphis<DataT>& graph, DataT vertex)
+{}
+
+//! \fn     ProcessEdge
+template<typename DataT>
+void ProcessEdge(Graphis<DataT>& graph, DataT v1, DataT v2)
+{}
+
 //! class   Graphis
 template<typename DataT>
 class Graphis
@@ -69,6 +96,10 @@ public:
     : m_num_vertices(0)
     , m_num_edges(0)
     , m_is_directed(is_directed)
+    , m_terminate(false)
+    , m_vertex_early(ProcessVertexEarly)
+    , m_vertex_late(ProcessVertexLate)
+    , m_edge_proc(ProcessEdge)
     {}
 
     //! \fn     Graphis::Graphis
@@ -76,6 +107,10 @@ public:
     : m_num_vertices(num_vertices)
     , m_num_edges(0)
     , m_is_directed(is_directed)
+    , m_terminate(false)
+    , m_vertex_early(ProcessVertexEarly)
+    , m_vertex_late(ProcessVertexLate)
+    , m_edge_proc(ProcessEdge)
     {}
 
     //! \fn     AddEdge
@@ -104,6 +139,7 @@ public:
             bfs.push_back(current_vertex);
             kew.pop();
             discovered.at(current_vertex) = e_processed;
+            m_vertex_early(*this, current_vertex);
 
             std::vector<DataT> adjlist = GetAdjacencyList(current_vertex);
             for (auto vert : adjlist) {
@@ -116,6 +152,8 @@ public:
                     m_parents.insert(std::make_pair(vert, current_vertex));
                 }
             }
+
+            m_vertex_late(*this, current_vertex);
         }
 
         return bfs;
@@ -156,8 +194,12 @@ public:
     {
         TraversedList<DataT> discovered;
         InitSearch(discovered);
+        int time = 0;
         std::vector<DataT> dfs;
-        return DoDepthFirstSearch(root, discovered, dfs);
+        EntryList<DataT> timeclock;
+        DoDepthFirstSearch(root, discovered, dfs, time, timeclock);
+
+        return dfs;
     }
 
     //! \fn     FindPath
@@ -200,6 +242,12 @@ public:
     int GetNumVerts() const
     {
         return m_num_vertices;
+    }
+
+    //! \fn     GetParents
+    ParentList<DataT> GetParents() const
+    {
+        return m_parents;
     }
 
     //! \fn     GetVertexList
@@ -251,6 +299,30 @@ public:
         m_is_directed = is_directed;
     }
 
+    //! \fn     SetProcessEdgeFn
+    void SetProcessEdgeFn(ProcEdgeFn <DataT> func)
+    {
+        m_edge_proc = func;
+    }
+
+    //! \fn     SetProcessVertexEarly
+    void SetProcessVertexEarly(ProcVertexFn<DataT> func)
+    {
+        m_vertex_early = func;
+    }
+
+    //! \fn     SetProcessVertexLate
+    void SetProcessVertexLate(ProcVertexFn<DataT> func)
+    {
+        m_vertex_late = func;
+    }
+
+    //! \fn     SetTerminationFlag
+    void SetTerminationFlag(bool terminate)
+    {
+        m_terminate = terminate;
+    }
+
 private:
     //! \fn     DoAddEdge
     //! \brief  Adds an edge from src to dst; src is the key, all edges from it reside in its edge list
@@ -278,17 +350,35 @@ private:
     }
 
     //! \fn     DoDepthFirstSearch
-    std::vector<DataT> DoDepthFirstSearch(DataT root, TraversedList<DataT>& discovered, std::vector<DataT>& dfs)
+    void DoDepthFirstSearch(DataT root, TraversedList<DataT>& discovered,
+        std::vector<DataT>& dfs, int time, EntryList<DataT>& timeclock)
     {
-        discovered[root] = e_undiscovered;
+        discovered.at(root) = e_discovered;
         dfs.push_back(root);
 
+        int entry_time = ++time;
+
+        m_vertex_early(*this, root);
         std::vector<DataT> adjlist = GetAdjacencyList(root);
         for (auto vert : adjlist) {
-            if (discovered[root] == e_undiscovered) {
-                DoDepthFirstSearch(vert, discovered, dfs);
+            if (discovered.at(vert) == e_undiscovered) {
+                m_parents.insert(std::make_pair(root, vert));
+                m_edge_proc(*this, root, vert);
+                DoDepthFirstSearch(vert, discovered, dfs, time, timeclock);
+            } else if ((discovered.at(vert) != e_processed) || IsDirected()) {
+                m_edge_proc(*this, root, vert);
+
+                if (m_terminate) {
+                    return;
+                }
             }
         }
+        m_vertex_late(*this, root);
+
+        int exit_time = ++time;
+
+        timeclock.insert(std::make_pair(root, std::make_pair(entry_time, exit_time)));
+        discovered.at(root) = e_processed;
     }
 
 
@@ -306,9 +396,16 @@ private:
     int m_num_vertices;
     int m_num_edges;
     bool m_is_directed;
+    bool m_terminate;
+
+    ProcVertexFn<DataT> m_vertex_early;
+    ProcVertexFn<DataT> m_vertex_late;
+    ProcEdgeFn<DataT> m_edge_proc;
+
     EdgeList<DataT> m_edges;
     DegreeList<DataT> m_degrees;
     ParentList<DataT> m_parents;
+
 };
 
 #endif //GRAPHIS_GRAPHIS_HPP
