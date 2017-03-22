@@ -10,6 +10,7 @@
 #include <list>
 #include <map>
 #include <queue>
+#include <set>
 #include <stack>
 #include <vector>
 
@@ -144,6 +145,7 @@ public:
             std::vector<DataT> adjlist = GetAdjacencyList(current_vertex);
             for (auto vert : adjlist) {
                 if ((discovered.at(vert) != e_processed) || IsDirected()) {
+                    m_edge_proc(*this, root, vert);
                 }
 
                 if (discovered.at(vert) == e_undiscovered) {
@@ -253,12 +255,15 @@ public:
     //! \fn     GetVertexList
     std::vector<DataT> GetVertexList() const
     {
-        std::vector<DataT> verts;
+        std::set<DataT> verts;
         for (auto edge : m_edges) {
-            verts.push_back(edge.first);
+            verts.insert(edge.first);
+            for (auto node : edge.second) {
+                verts.insert(node.dest);
+            }
         }
 
-        return verts;
+        return std::vector<DataT>(verts.begin(), verts.end());
     }
 
     //! \fn     IsDirected
@@ -289,7 +294,16 @@ public:
             }
 
             std::cout << std::endl;
-            std::cout << "Degree  : " << m_degrees.at(vert) << std::endl;
+
+            auto degrees = 0;
+            auto adegree = m_degrees.find(vert);
+            if (adegree != m_degrees.end()) {
+                degrees = m_degrees.at(vert);
+            } else {
+                degrees = 0;
+            }
+
+            std::cout << "Degree  : " << degrees << std::endl;
         }
     }
 
