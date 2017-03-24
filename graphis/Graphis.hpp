@@ -42,6 +42,16 @@ enum VisitedState
     e_processed
 };
 
+//! \enum   EdgeClassification
+enum EdgeClassification
+{
+    e_tree,
+    e_back_edge,
+    e_forward_edge,
+    e_cross_edge,
+    e_unclassified
+};
+
 template<typename DataT>
 class Graphis;
 
@@ -127,63 +137,26 @@ public:
     }
 
     //! \fn     BreadthFirstSearch
-    //! \brief  Uses external TraversedList
-    std::vector<DataT> BreadthFirstSearch(DataT root, TraversedList<DataT>& discovered)
-    {
-        std::queue<DataT> kew;
-        discovered.at(root) = e_discovered;
-        kew.push(root);
-
-        std::vector<DataT> bfs;
-        while (!kew.empty()) {
-            DataT current_vertex = kew.front();
-            bfs.push_back(current_vertex);
-            kew.pop();
-            discovered.at(current_vertex) = e_processed;
-            m_vertex_early(*this, current_vertex);
-
-            std::vector<DataT> adjlist = GetAdjacencyList(current_vertex);
-            for (auto vert : adjlist) {
-                if ((discovered.at(vert) != e_processed) || IsDirected()) {
-                    m_edge_proc(*this, root, vert);
-                }
-
-                if (discovered.at(vert) == e_undiscovered) {
-                    discovered.at(vert) = e_discovered;
-                    kew.push(vert);
-                    m_parents.insert(std::make_pair(vert, current_vertex));
-                }
-            }
-
-            m_vertex_late(*this, current_vertex);
-        }
-
-        return bfs;
-    }
-
-    //! \fn     BreadthFirstSearch
     //! \see    http://www.geeksforgeeks.org/breadth-first-traversal-for-a-graph/ or http://www.algorist.com/
     std::vector<DataT> BreadthFirstSearch(DataT root)
     {
-        TraversedList<DataT> discovered;
-        InitSearch(discovered);
-        return BreadthFirstSearch(root, discovered);
+        InitSearch();
+        return DoBreadthFirstSearch(root);
     }
 
     //! \fn     ConnectedComponents
     ComponentList<DataT> ConnectedComponents()
     {
-        TraversedList<DataT> discovered;
-        InitSearch(discovered);
+        InitSearch();
 
         auto component_num = 0;
         ComponentList<DataT> components;
 
         std::vector<DataT> vertices = GetVertexList();
         for (auto vert : vertices) {
-            if (discovered.at(vert) == e_undiscovered) {
+            if (m_discovered.at(vert) == e_undiscovered) {
                 ++component_num;
-                std::vector<DataT> bfs = BreadthFirstSearch(vert, discovered);
+                std::vector<DataT> bfs = BreadthFirstSearch(vert);
                 components.insert(std::make_pair(component_num, bfs));
             }
         }
@@ -192,14 +165,16 @@ public:
     }
 
     //! \fn     DepthFirstSearch
-    std::vector<DataT> DepthFirstSearch(DataT root)
+    std::vector<DataT> DepthFirstSearch(DataT root, bool init = true)
     {
-        TraversedList<DataT> discovered;
-        InitSearch(discovered);
         int time = 0;
+
+        if (init) {
+            InitSearch();
+        }
+
         std::vector<DataT> dfs;
-        EntryList<DataT> timeclock;
-        DoDepthFirstSearch(root, discovered, dfs, time, timeclock);
+        DoDepthFirstSearch(root, dfs, time);
 
         return dfs;
     }
@@ -232,6 +207,41 @@ public:
         } else {
             return std::vector<DataT>();
         }
+    }
+
+    //! \fn     GetEdgeClassification
+    EdgeClassification GetEdgeClassification(DataT v1, DataT v2)
+    {
+        auto pend = m_parents.find(v2);
+        if (pend != m_parents.end()) {
+            if (m_parents.at(v2) != v1) {
+                return e_tree;
+            }
+        }
+
+        auto visited = m_discovered.at(v2);
+        if ((visited == e_discovered) && (visited != e_processed)) {
+            return e_back_edge;
+        }
+
+        auto tyme1 = m_timeclock.find(v1);
+        auto tyme2 = m_timeclock.find(v2);
+        if ((tyme1 != m_timeclock.end()) && (tyme2 != m_timeclock.end())) {
+            if (visited == e_processed) {
+                auto t1 = tyme1->second;
+                auto t2 = tyme2->second;
+
+                if (t2.first > t1.first) {
+                    return e_forward_edge;
+                }
+
+                if (t2.first < t1.first) {
+                    return e_cross_edge;
+                }
+            }
+        }
+
+        return e_unclassified;
     }
 
     //! \fn     GetNumEdges
@@ -307,6 +317,12 @@ public:
         }
     }
 
+    //! \fn     PushSorted
+    void PushSorted(DataT vertex)
+    {
+        m_sorted.push(vertex);
+    }
+
     //! \fn     SetDirected
     void SetDirected(bool is_directed)
     {
@@ -314,7 +330,7 @@ public:
     }
 
     //! \fn     SetProcessEdgeFn
-    void SetProcessEdgeFn(ProcEdgeFn <DataT> func)
+    void SetProcessEdgeFn(ProcEdgeFn<DataT> func)
     {
         m_edge_proc = func;
     }
@@ -337,7 +353,38 @@ public:
         m_terminate = terminate;
     }
 
+    //! \fn     TopologicalSort
+    std::vector<DataT> TopologicalSort()
+    {
+        InitSearch();
+        ClearSorted();
+
+        std::vector<DataT> dfs;
+        std::vector<DataT> vertices = GetVertexList();
+        for (auto vertex : vertices) {
+            if (m_discovered.at(vertex) == e_undiscovered) {
+                dfs = DepthFirstSearch(vertex, false);
+            }
+        }
+
+        std::vector<DataT> sorted;
+        while (!m_sorted.empty()) {
+            sorted.push_back(m_sorted.top());
+            m_sorted.pop();
+        }
+
+        return sorted;
+    }
+
 private:
+    //! \fn     ClearSorted
+    void ClearSorted()
+    {
+        while (!m_sorted.empty()) {
+            m_sorted.pop();
+        }
+    }
+
     //! \fn     DoAddEdge
     //! \brief  Adds an edge from src to dst; src is the key, all edges from it reside in its edge list
     void DoAddEdge(DataT src, DataT dst)
@@ -363,11 +410,44 @@ private:
         ++m_num_edges;
     }
 
-    //! \fn     DoDepthFirstSearch
-    void DoDepthFirstSearch(DataT root, TraversedList<DataT>& discovered,
-        std::vector<DataT>& dfs, int time, EntryList<DataT>& timeclock)
+    //! \fn     DoBreadthFirstSearch
+    std::vector<DataT> DoBreadthFirstSearch(DataT root)
     {
-        discovered.at(root) = e_discovered;
+        std::queue<DataT> kew;
+        m_discovered.at(root) = e_discovered;
+        kew.push(root);
+
+        std::vector<DataT> bfs;
+        while (!kew.empty()) {
+            DataT current_vertex = kew.front();
+            bfs.push_back(current_vertex);
+            kew.pop();
+            m_discovered.at(current_vertex) = e_processed;
+            m_vertex_early(*this, current_vertex);
+
+            std::vector<DataT> adjlist = GetAdjacencyList(current_vertex);
+            for (auto vert : adjlist) {
+                if ((m_discovered.at(vert) != e_processed) || IsDirected()) {
+                    m_edge_proc(*this, root, vert);
+                }
+
+                if (m_discovered.at(vert) == e_undiscovered) {
+                    m_discovered.at(vert) = e_discovered;
+                    kew.push(vert);
+                    m_parents.insert(std::make_pair(vert, current_vertex));
+                }
+            }
+
+            m_vertex_late(*this, current_vertex);
+        }
+
+        return bfs;
+    }
+
+    //! \fn     DoDepthFirstSearch
+    void DoDepthFirstSearch(DataT root, std::vector<DataT>& dfs, int time)
+    {
+        m_discovered.at(root) = e_discovered;
         dfs.push_back(root);
 
         int entry_time = ++time;
@@ -375,11 +455,11 @@ private:
         m_vertex_early(*this, root);
         std::vector<DataT> adjlist = GetAdjacencyList(root);
         for (auto vert : adjlist) {
-            if (discovered.at(vert) == e_undiscovered) {
+            if (m_discovered.at(vert) == e_undiscovered) {
                 m_parents.insert(std::make_pair(root, vert));
                 m_edge_proc(*this, root, vert);
-                DoDepthFirstSearch(vert, discovered, dfs, time, timeclock);
-            } else if ((discovered.at(vert) != e_processed) || IsDirected()) {
+                DoDepthFirstSearch(vert, dfs, time);
+            } else if ((m_discovered.at(vert) != e_processed) || IsDirected()) {
                 m_edge_proc(*this, root, vert);
 
                 if (m_terminate) {
@@ -391,19 +471,21 @@ private:
 
         int exit_time = ++time;
 
-        timeclock.insert(std::make_pair(root, std::make_pair(entry_time, exit_time)));
-        discovered.at(root) = e_processed;
+        m_timeclock.insert(std::make_pair(root, std::make_pair(entry_time, exit_time)));
+        m_discovered.at(root) = e_processed;
     }
 
 
     //! \fn     InitSearch
-    void InitSearch(TraversedList<DataT>& discovered)
+    void InitSearch()
     {
         m_parents.clear();
+        m_discovered.clear();
+        m_timeclock.clear();
         std::vector<DataT> vertices = GetVertexList();
         for (auto vert : vertices) {
             std::pair<DataT, VisitedState> init(vert, e_undiscovered);
-            discovered.insert(init);
+            m_discovered.insert(init);
         }
     }
 
@@ -419,7 +501,9 @@ private:
     EdgeList<DataT> m_edges;
     DegreeList<DataT> m_degrees;
     ParentList<DataT> m_parents;
-
+    TraversedList<DataT> m_discovered;
+    EntryList<DataT> m_timeclock;
+    std::stack<DataT> m_sorted;
 };
 
 #endif //GRAPHIS_GRAPHIS_HPP
