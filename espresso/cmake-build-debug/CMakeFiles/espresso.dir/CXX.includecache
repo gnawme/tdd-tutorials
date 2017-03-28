@@ -1,0 +1,32 @@
+#IncludeRegexLine: ^[ 	]*#[ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/norme/Projects/tdd-tutorials/espresso/Espresso.cpp
+Espresso.hpp
+/home/norme/Projects/tdd-tutorials/espresso/Espresso.hpp
+
+/home/norme/Projects/tdd-tutorials/espresso/Espresso.hpp
+set
+-
+stack
+-
+vector
+-
+
+/home/norme/Projects/tdd-tutorials/espresso/EspressoTest.cpp
+Espresso.hpp
+/home/norme/Projects/tdd-tutorials/espresso/Espresso.hpp
+gmock/gmock.h
+-
+iostream
+-
+string
+-
+vector
+-
+

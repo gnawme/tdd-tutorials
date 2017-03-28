@@ -1,0 +1,1 @@
+/usr/bin/c++   -g   CMakeFiles/espresso.dir/EspressoTest.cpp.o CMakeFiles/espresso.dir/Espresso.cpp.o  -o espresso -lgtest -lpthread 
