@@ -20,14 +20,14 @@ struct AdjacencyNode
 {
     //! \fn     AdjacencyNode::AdjacencyNode
     AdjacencyNode(DataT dest)
-        : dest(dest)
-        , weight(0)
+    : dest(dest)
+    , weight(0)
     {}
 
     //! \fn     AdjacencyNode::AdjacencyNode
     AdjacencyNode(DataT dest, int weight)
-        : dest(dest)
-        , weight(weight)
+    : dest(dest)
+    , weight(weight)
     {}
 
     DataT dest;
@@ -125,14 +125,14 @@ public:
     {}
 
     //! \fn     AddEdge
-    void AddEdge(DataT src, DataT dst)
+    void AddEdge(DataT src, DataT dst, int weight=0)
     {
         // Add edge from src to dst
-        DoAddEdge(src, dst);
+        DoAddEdge(src, dst, weight);
 
         // Add edge from dst to src for undirected graph
         if (!m_is_directed) {
-            DoAddEdge(dst, src);
+            DoAddEdge(dst, src, weight);
         }
     }
 
@@ -387,10 +387,10 @@ private:
 
     //! \fn     DoAddEdge
     //! \brief  Adds an edge from src to dst; src is the key, all edges from it reside in its edge list
-    void DoAddEdge(DataT src, DataT dst)
+    void DoAddEdge(DataT src, DataT dst, int weight = 0)
     {
         // Add edge from src to dst
-        AdjacencyNode<DataT> dstnode(dst);
+        AdjacencyNode<DataT> dstnode(dst, weight);
 
         auto anedge = m_edges.find(src);
         if (anedge == m_edges.end()) {
