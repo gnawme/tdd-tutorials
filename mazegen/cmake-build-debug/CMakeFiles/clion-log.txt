@@ -1,0 +1,4 @@
+/home/norme/Programs/clion-2016.3.1/bin/cmake/bin/cmake -DCMAKE_BUILD_TYPE=Debug -G "CodeBlocks - Unix Makefiles" /home/norme/Projects/tdd-tutorials/mazegen
+-- Configuring done
+-- Generating done
+-- Build files have been written to: /home/norme/Projects/tdd-tutorials/mazegen/cmake-build-debug

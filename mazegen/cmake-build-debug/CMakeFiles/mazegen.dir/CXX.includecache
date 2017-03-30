@@ -1,0 +1,32 @@
+#IncludeRegexLine: ^[ 	]*#[ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/norme/Projects/tdd-tutorials/mazegen/RBMaze.cpp
+RBMaze.hpp
+/home/norme/Projects/tdd-tutorials/mazegen/RBMaze.hpp
+algorithm
+-
+iostream
+-
+
+/home/norme/Projects/tdd-tutorials/mazegen/RBMaze.hpp
+memory
+-
+vector
+-
+
+/home/norme/Projects/tdd-tutorials/mazegen/main.cpp
+RBMaze.hpp
+/home/norme/Projects/tdd-tutorials/mazegen/RBMaze.hpp
+cstdlib
+-
+ctime
+-
+iostream
+-
+
