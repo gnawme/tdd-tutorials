@@ -5,8 +5,10 @@
 #ifndef GRAPHIS_GRAPHIS_HPP
 #define GRAPHIS_GRAPHIS_HPP
 
+#include <algorithm>
 #include <iomanip>
 #include <iostream>
+#include <limits>
 #include <list>
 #include <map>
 #include <queue>
@@ -29,6 +31,11 @@ struct AdjacencyNode
     : dest(dest)
     , weight(weight)
     {}
+
+    bool operator<(const AdjacencyNode<DataT>& lhs) const
+    {
+        return dest < lhs.dest;
+    }
 
     DataT dest;
     int weight;
@@ -63,6 +70,9 @@ using EdgeList = std::map<DataT, AdjacencyList<DataT>>;
 
 template<typename DataT>
 using DegreeList = std::map<DataT, int>;
+
+template<typename DataT>
+using WeightList = std::map<DataT, int>;
 
 template<typename DataT>
 using TraversedList = std::map<DataT, VisitedState>;
@@ -192,7 +202,18 @@ public:
     }
 
     //! \fn     GetAdjacencyList
-    std::vector<DataT> GetAdjacencyList(DataT vertex) const
+    AdjacencyList<DataT> GetAdjacencyList(DataT vertex) const
+    {
+        auto edgeit = m_edges.find(vertex);
+        if (edgeit != m_edges.end()) {
+            return m_edges.at(vertex);
+        } else {
+            return AdjacencyList<DataT>();
+        }
+    }
+
+    //! \fn     GetAdjacentVertices
+    std::vector<DataT> GetAdjacentVertices(DataT vertex) const
     {
         auto edgeit = m_edges.find(vertex);
         if (edgeit != m_edges.end()) {
@@ -244,6 +265,19 @@ public:
         return e_unclassified;
     }
 
+    //! \fn     GetNodeList
+    std::vector<AdjacencyNode<DataT>> GetNodeList() const
+    {
+        std::set<AdjacencyNode<DataT>> nodes;
+        for (auto edge : m_edges) {
+            for (auto node : edge.second) {
+                nodes.insert(node.dest);
+            }
+        }
+
+        return std::vector<AdjacencyNode<DataT>>(nodes.begin(), nodes.end());
+    }
+
     //! \fn     GetNumEdges
     int GetNumEdges() const
     {
@@ -288,6 +322,47 @@ public:
         return (m_num_vertices == 0);
     }
 
+    //! \fn     PrimSpanningTree
+    std::vector<DataT> PrimSpanningTree(DataT root)
+    {
+        m_parents.clear();
+        std::vector<AdjacencyNode<DataT>> nodes = GetNodeList();
+        WeightList<DataT> distances;
+        for (auto node : nodes) {
+            distances.insert(std::make_pair(node.dest, std::numeric_limits<int>::max()));
+        }
+
+        distances.at(root) = 0;
+
+        std::vector<DataT> in_span;
+        auto current = root;
+        while (std::find(in_span.begin(), in_span.end(), current) == in_span.end()) {
+            in_span.push_back(current);
+            AdjacencyList<DataT> adjlist = GetAdjacencyList(current);
+            for (auto adj : adjlist) {
+                auto candidate = adj.dest;
+                auto weight = adj.weight;
+
+                auto inc = std::find(in_span.begin(), in_span.end(), candidate);
+                if ((distances.at(candidate) > weight) && (inc == in_span.end())) {
+                    distances.at(candidate) = weight;
+                    m_parents.insert(std::make_pair(candidate, current));
+                }
+            }
+
+            auto mindist = std::numeric_limits<int>::max();
+            for (auto node : nodes) {
+                auto inc = std::find(in_span.begin(), in_span.end(), node.dest);
+                if ((inc == in_span.end()) && (mindist > distances.at(node.dest))) {
+                    mindist = distances.at(node.dest);
+                    current = node.dest;
+                }
+            }
+        }
+
+        return in_span;
+    }
+
     //! \fn     PrintGraph
     void PrintGraph() const
     {
@@ -298,7 +373,7 @@ public:
         std::vector<DataT> verts = GetVertexList();
         for (auto vert : verts) {
             std::cout << std::setw(8) << vert << ": ";
-            std::vector<DataT> adjlist = GetAdjacencyList(vert);
+            std::vector<DataT> adjlist = GetAdjacentVertices(vert);
             for (auto adj : adjlist) {
                 std::cout << adj << " ";
             }
@@ -425,7 +500,7 @@ private:
             m_discovered.at(current_vertex) = e_processed;
             m_vertex_early(*this, current_vertex);
 
-            std::vector<DataT> adjlist = GetAdjacencyList(current_vertex);
+            std::vector<DataT> adjlist = GetAdjacentVertices(current_vertex);
             for (auto vert : adjlist) {
                 if ((m_discovered.at(vert) != e_processed) || IsDirected()) {
                     m_edge_proc(*this, root, vert);
@@ -453,7 +528,7 @@ private:
         int entry_time = ++time;
 
         m_vertex_early(*this, root);
-        std::vector<DataT> adjlist = GetAdjacencyList(root);
+        std::vector<DataT> adjlist = GetAdjacentVertices(root);
         for (auto vert : adjlist) {
             if (m_discovered.at(vert) == e_undiscovered) {
                 m_parents.insert(std::make_pair(root, vert));
