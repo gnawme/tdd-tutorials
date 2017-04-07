@@ -189,6 +189,47 @@ public:
         return dfs;
     }
 
+    //! \fn     DjikstaShortestPath
+    std::vector<DataT> DjikstaShortestPath(DataT root)
+    {
+        m_parents.clear();
+        std::vector<AdjacencyNode<DataT>> nodes = GetNodeList();
+        WeightList<DataT> distances;
+        for (auto node : nodes) {
+            distances.insert(std::make_pair(node.dest, std::numeric_limits<int>::max()));
+        }
+
+        distances.at(root) = 0;
+
+        std::vector<DataT> in_span;
+        auto current = root;
+        while (std::find(in_span.begin(), in_span.end(), current) == in_span.end()) {
+            in_span.push_back(current);
+            AdjacencyList<DataT> adjlist = GetAdjacencyList(current);
+            for (auto adj : adjlist) {
+                auto candidate = adj.dest;
+                auto weight = adj.weight;
+
+                auto inc = std::find(in_span.begin(), in_span.end(), candidate);
+                if ((distances.at(candidate) > distances.at(current) + weight) && (inc == in_span.end())) {
+                    distances.at(candidate) = distances.at(current) + weight;
+                    m_parents.insert(std::make_pair(candidate, current));
+                }
+            }
+
+            auto mindist = std::numeric_limits<int>::max();
+            for (auto node : nodes) {
+                auto inc = std::find(in_span.begin(), in_span.end(), node.dest);
+                if ((inc == in_span.end()) && (mindist > distances.at(node.dest))) {
+                    mindist = distances.at(node.dest);
+                    current = node.dest;
+                }
+            }
+        }
+
+        return in_span;
+    }
+
     //! \fn     FindPath
     void FindPath(DataT start, DataT end, std::stack<DataT>& path)
     {

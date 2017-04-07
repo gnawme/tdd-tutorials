@@ -290,6 +290,17 @@ TEST_F(GraphisTest, PrimSpanningTreeShouldYieldMinimum) {
     EXPECT_THAT(expected, ::testing::Eq(span));
 }
 
+//! \test   DjikstraShortestPathShouldYieldShortest
+TEST_F(GraphisTest, DjikstraShortestPathShouldYieldShortest) {
+    LoadADM();
+    std::vector<char> expected{
+        'A', 'B', 'D', 'F', 'C', 'E', 'G'
+    };
+
+    std::vector<char> span = adm.DjikstaShortestPath('A');
+    EXPECT_THAT(expected, ::testing::Eq(span));
+}
+
 //! \fn     main
 int main(int argc, char** argv)
 {
