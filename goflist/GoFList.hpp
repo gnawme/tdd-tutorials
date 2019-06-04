@@ -8,21 +8,23 @@
 
 #include <memory>
 
-enum {
+enum
+{
     DEFAULT_LIST_CAPACITY = 128
 };
 
 //! \class  GoFList
 //! \brief  Implementation of GoF List
-template<typename DataT>
-class GoFList: public Slinky<DataT>
+template <typename DataT>
+class GoFList : public Slinky<DataT>
 {
 public:
     //! \fn
     GoFList(size_t size = DEFAULT_LIST_CAPACITY)
-    : Slinky<DataT>()
-    , m_list_size(size)
-    {}
+        : Slinky<DataT>()
+        , m_list_size(size)
+    {
+    }
 
     //! \fn     Count
     std::size_t Count() const
@@ -54,8 +56,7 @@ public:
     }
 
 private:
-    size_t                          m_list_size;
+    size_t m_list_size;
 };
 
-
-#endif //GOFLIST_GOFLIST_HPP
+#endif // GOFLIST_GOFLIST_HPP

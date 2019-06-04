@@ -4,11 +4,12 @@
 #include <vector>
 
 //! \class  GraphisTest
-class GraphisTest: public ::testing::Test
+class GraphisTest : public ::testing::Test
 {
 public:
     virtual void SetUp()
-    {}
+    {
+    }
 
     void LoadADM()
     {
@@ -97,19 +98,22 @@ public:
 };
 
 //! \test   EmptyGraphShouldReturnEmpty
-TEST_F(GraphisTest, EmptyGraphShouldReturnEmpty) {
+TEST_F(GraphisTest, EmptyGraphShouldReturnEmpty)
+{
 
     EXPECT_TRUE(graph1.IsEmpty());
 }
 
 //! \test   AddingFiveVerticesShouldReturnSizeFive
-TEST_F(GraphisTest, AddingFiveVerticesShouldReturnSizeFive) {
+TEST_F(GraphisTest, AddingFiveVerticesShouldReturnSizeFive)
+{
     LoadGeekGraph();
     EXPECT_EQ(graph1.GetNumVerts(), 5);
 }
 
 //! \test   VertexListShouldMatchExpectedSize
-TEST_F(GraphisTest, VertexListShouldMatchExpectedSize) {
+TEST_F(GraphisTest, VertexListShouldMatchExpectedSize)
+{
     LoadGeekGraph();
 
     std::vector<int> verts = graph1.GetVertexList();
@@ -117,13 +121,15 @@ TEST_F(GraphisTest, VertexListShouldMatchExpectedSize) {
 }
 
 //! \test   NumberOfEdgesShouldEqualFourteen
-TEST_F(GraphisTest, NumberOfEdgesShouldEqualFourteen) {
+TEST_F(GraphisTest, NumberOfEdgesShouldEqualFourteen)
+{
     LoadGeekGraph();
     EXPECT_THAT(14, graph1.GetNumEdges());
 }
 
 //! \test   AdjacencyListsShouldMatchExpected
-TEST_F(GraphisTest, AdjacencyListsShouldMatchExpected) {
+TEST_F(GraphisTest, AdjacencyListsShouldMatchExpected)
+{
     LoadGeekGraph();
 
     std::vector<int> v0list{4, 1};
@@ -139,7 +145,8 @@ TEST_F(GraphisTest, AdjacencyListsShouldMatchExpected) {
 }
 
 //! \test   BreadthFirstSearchShouldMatchExpected
-TEST_F(GraphisTest, BreadthFirstSearchShouldMatchExpected) {
+TEST_F(GraphisTest, BreadthFirstSearchShouldMatchExpected)
+{
     LoadSearchGraph();
 
     std::vector<int> v1bfs{1, 2, 3, 0};
@@ -152,7 +159,8 @@ TEST_F(GraphisTest, BreadthFirstSearchShouldMatchExpected) {
 }
 
 //! \test   FindPathShouldReturnExpected {
-TEST_F(GraphisTest, FindPathShouldReturnExpected) {
+TEST_F(GraphisTest, FindPathShouldReturnExpected)
+{
     LoadRouteGraph();
     // Must perform BFS from start node to get meaningful results
     std::vector<std::string> bfsout = allegiant.BreadthFirstSearch("LAX");
@@ -162,7 +170,8 @@ TEST_F(GraphisTest, FindPathShouldReturnExpected) {
     allegiant.FindPath("LAX", "LAS", path);
 
     std::vector<std::string> laxroute;
-    while (!path.empty()) {
+    while (!path.empty())
+    {
         laxroute.push_back(path.top());
         path.pop();
     }
@@ -171,20 +180,22 @@ TEST_F(GraphisTest, FindPathShouldReturnExpected) {
 }
 
 //! \test   ConnectedComponentsShouldReturnExpected
-TEST_F(GraphisTest, ConnectedComponentsShouldReturnExpected) {
+TEST_F(GraphisTest, ConnectedComponentsShouldReturnExpected)
+{
     LoadRouteGraph();
 
     ComponentList<std::string> connected = allegiant.ConnectedComponents();
 
     EXPECT_EQ(1, connected.size());
 
-    std::vector<std::string> conset{
-        "AZA", "SCK", "STS", "PSC", "OAK", "LAS", "MFR", "IDA", "FAT", "EUG", "BLI", "LAX", "RNO", "BOI"
-    };
+    std::vector<std::string> conset{"AZA", "SCK", "STS", "PSC", "OAK", "LAS", "MFR",
+                                    "IDA", "FAT", "EUG", "BLI", "LAX", "RNO", "BOI"};
 
     std::vector<std::string> inset;
-    for (auto component : connected) {
-        for (auto conlist : component.second) {
+    for (auto component : connected)
+    {
+        for (auto conlist : component.second)
+        {
             inset.push_back(conlist);
         }
     }
@@ -193,7 +204,8 @@ TEST_F(GraphisTest, ConnectedComponentsShouldReturnExpected) {
 }
 
 //! \test   DepthFirstSearchShouldMatchExpected
-TEST_F(GraphisTest, DepthFirstSearchShouldMatchExpected) {
+TEST_F(GraphisTest, DepthFirstSearchShouldMatchExpected)
+{
     LoadSearchGraph();
 
     std::vector<int> dfsout = graph2.DepthFirstSearch(2);
@@ -202,7 +214,7 @@ TEST_F(GraphisTest, DepthFirstSearchShouldMatchExpected) {
 }
 
 //! \fn     ProcessCycle
-template<typename DataT>
+template <typename DataT>
 void ProcessCycle(Graphis<DataT>& graph, DataT v1, DataT v2)
 {
     std::stack<DataT> path;
@@ -210,7 +222,8 @@ void ProcessCycle(Graphis<DataT>& graph, DataT v1, DataT v2)
     graph.SetTerminationFlag(true);
 
     std::cout << "Cycle found between " << v1 << " and " << v2 << std::endl;
-    while (!path.empty()) {
+    while (!path.empty())
+    {
         std::cout << path.top() << " ";
         path.pop();
     }
@@ -219,59 +232,65 @@ void ProcessCycle(Graphis<DataT>& graph, DataT v1, DataT v2)
 
 //! \fn     FindCycle
 //! \brief  Implements ProcEdgeFn for Depth First Search when finding cycles
-template<typename DataT>
-void FindCycle(Graphis<DataT>& graph, DataT v1, DataT v2) {
-    if (v1 == v2) {
+template <typename DataT>
+void FindCycle(Graphis<DataT>& graph, DataT v1, DataT v2)
+{
+    if (v1 == v2)
+    {
         ProcessCycle(graph, v1, v2);
     }
 
     ParentList<DataT> parents = graph.GetParents();
-    auto parent_of = parents.find(v1);
+    auto parent_of            = parents.find(v1);
 
-    if (parent_of != parents.end()) {
-        if (parents.at(v1) != v2) {
+    if (parent_of != parents.end())
+    {
+        if (parents.at(v1) != v2)
+        {
             ProcessCycle(graph, v1, v2);
         }
     }
 }
 
 //! \test   FindingCycleInDFSShouldMatchExpected
-TEST_F(GraphisTest, FindingCycleInDFSShouldMatchExpected) {
+TEST_F(GraphisTest, FindingCycleInDFSShouldMatchExpected)
+{
     LoadSearchGraph();
 
     graph2.SetProcessEdgeFn(FindCycle);
     std::vector<int> verts = graph2.GetVertexList();
-    for (auto vert : verts) {
+    for (auto vert : verts)
+    {
         std::vector<int> dfsout = graph2.DepthFirstSearch(vert);
     }
 }
 
 //! \fn     ClassifyEdges
 //! \brief  Implements ProcEdgeFn for Depth First Search when performing topo sort
-template<typename DataT>
+template <typename DataT>
 void ClassifyEdges(Graphis<DataT>& graph, DataT v1, DataT v2)
 {
     EdgeClassification eclass = graph.GetEdgeClassification(v1, v2);
 
-    if (eclass == e_back_edge) {
+    if (eclass == e_back_edge)
+    {
         std::cerr << "WARNING: Directed cycle found, not a DAG" << std::endl;
     }
 }
 
 //! \fn     PushSorted
 //! \brief  Implements SetProcessVertexLate for DFS when performing topo sort
-template<typename DataT>
+template <typename DataT>
 void PushSorted(Graphis<DataT>& graph, DataT vertex)
 {
     graph.PushSorted(vertex);
 }
 
 //! \test   TopoSortShouldMatchExpectedTopology
-TEST_F(GraphisTest, TopoSortShouldMatchExpectedTopology) {
+TEST_F(GraphisTest, TopoSortShouldMatchExpectedTopology)
+{
     LoadDAG();
-    std::vector<char> expected{
-        'G', 'A', 'B', 'C', 'F', 'E', 'D'
-    };
+    std::vector<char> expected{'G', 'A', 'B', 'C', 'F', 'E', 'D'};
 
     dag.SetProcessEdgeFn(ClassifyEdges);
     dag.SetProcessVertexLate(PushSorted);
@@ -280,22 +299,20 @@ TEST_F(GraphisTest, TopoSortShouldMatchExpectedTopology) {
 }
 
 //! \test   PrimSpanningTreeShouldYieldMinimum
-TEST_F(GraphisTest, PrimSpanningTreeShouldYieldMinimum) {
+TEST_F(GraphisTest, PrimSpanningTreeShouldYieldMinimum)
+{
     LoadADM();
-    std::vector<char> expected{
-        'A', 'B', 'C', 'F', 'G', 'D', 'E'
-    };
+    std::vector<char> expected{'A', 'B', 'C', 'F', 'G', 'D', 'E'};
 
     std::vector<char> span = adm.PrimSpanningTree('A');
     EXPECT_THAT(expected, ::testing::Eq(span));
 }
 
 //! \test   DjikstraShortestPathShouldYieldShortest
-TEST_F(GraphisTest, DjikstraShortestPathShouldYieldShortest) {
+TEST_F(GraphisTest, DjikstraShortestPathShouldYieldShortest)
+{
     LoadADM();
-    std::vector<char> expected{
-        'A', 'B', 'D', 'F', 'C', 'E', 'G'
-    };
+    std::vector<char> expected{'A', 'B', 'D', 'F', 'C', 'E', 'G'};
 
     std::vector<char> span = adm.DjikstaShortestPath('A');
     EXPECT_THAT(expected, ::testing::Eq(span));

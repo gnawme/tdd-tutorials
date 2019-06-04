@@ -2,46 +2,49 @@
 
 #include <gmock/gmock.h>
 
+#include <utility>
+
 //! \struct GoFListTest
-struct GoFListTest: public ::testing::Test
+struct GoFListTest : public ::testing::Test
 {
-    virtual void SetUp()
-    {}
+    void SetUp() override
+    {
+    }
 
     std::array<std::string, 26> natos{
-        {
-            "alfa", "bravo", "charlie", "delta", "echo", "foxtrot",
-            "golf", "hotel", "india", "juliett", "kilo", "lima",
-            "mike", "november", "oscar", "papa", "quebec", "romeo",
-            "sierra", "tango", "uniform", "victor", "whiskey", "x-ray",
-            "yankee", "zulu"
-        }
-    };
+        {"alfa",   "bravo",   "charlie", "delta",  "echo",   "foxtrot", "golf",
+         "hotel",  "india",   "juliett", "kilo",   "lima",   "mike",    "november",
+         "oscar",  "papa",    "quebec",  "romeo",  "sierra", "tango",   "uniform",
+         "victor", "whiskey", "x-ray",   "yankee", "zulu"}};
 
     void AppendNATO(int count)
     {
-        for (auto i = 0; i < count; ++i) {
+        for (auto i = 0; i < count; ++i)
+        {
             goflist.Append(natos[i]);
         }
     }
 
     void PrependNATO(int count)
     {
-        for (auto i = 0; i < count; ++i) {
+        for (auto i = 0; i < count; ++i)
+        {
             goflist.Prepend(natos[i]);
         }
     }
 
-    GoFList<std::string>    goflist;
+    GoFList<std::string> goflist;
 };
 
 //! \test   InitialCountShouldBeZero
-TEST_F(GoFListTest, InitialCountShouldBeZero) {
+TEST_F(GoFListTest, InitialCountShouldBeZero)
+{
     EXPECT_EQ(0, goflist.Count());
 }
 
 //! \test   CountAfterAppendShouldBeGreater
-TEST_F(GoFListTest, CountAfterAppendShouldBeGreater) {
+TEST_F(GoFListTest, CountAfterAppendShouldBeGreater)
+{
     auto count0 = goflist.Count();
     AppendNATO(2);
     auto count2 = goflist.Count();
@@ -49,20 +52,23 @@ TEST_F(GoFListTest, CountAfterAppendShouldBeGreater) {
 }
 
 //! \test   FirstShouldBeAlfaLastShouldBeDelta
-TEST_F(GoFListTest, FirstShouldBeAlfaLastShouldBeDelta) {
+TEST_F(GoFListTest, FirstShouldBeAlfaLastShouldBeDelta)
+{
     AppendNATO(4);
     EXPECT_EQ(natos[0], goflist.First());
     EXPECT_EQ(natos[3], goflist.Last());
 }
 
 //! \test   TopShouldReturnCharlie
-TEST_F(GoFListTest, TopShouldReturnCharlie) {
+TEST_F(GoFListTest, TopShouldReturnCharlie)
+{
     PrependNATO(3);
     EXPECT_EQ(natos[2], goflist.Top());
 }
 
 //! \test   PushPushShouldReturnAlfaAlfa
-TEST_F(GoFListTest, PushPushShouldReturnAlfaAlfa) {
+TEST_F(GoFListTest, PushPushShouldReturnAlfaAlfa)
+{
     goflist.Push(natos[0]);
     goflist.Push(natos[0]);
 
@@ -73,8 +79,10 @@ TEST_F(GoFListTest, PushPushShouldReturnAlfaAlfa) {
 }
 
 //! \test   ThreePushesAndPopShouldReturnBravoAlfa
-TEST_F(GoFListTest, ThreePushesAndPopShouldReturnBravoAlfa) {
-    for (auto i = 0; i < 3; ++i) {
+TEST_F(GoFListTest, ThreePushesAndPopShouldReturnBravoAlfa)
+{
+    for (auto i = 0; i < 3; ++i)
+    {
         goflist.Push(natos[i]);
     }
 

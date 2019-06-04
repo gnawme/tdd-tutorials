@@ -9,51 +9,49 @@
 #include <vector>
 
 //! \class  GraphisTest
-class EspressoTest: public ::testing::Test
+class EspressoTest : public ::testing::Test
 {
 public:
-    virtual void SetUp() {
-
+    void SetUp() override
+    {
     }
 
     void LoadMultiOperatorExpression()
     {
-        for (auto entry : wikieqn) {
+        for (auto entry : wikieqn)
+        {
             espresso.AddSymbol(entry);
         }
     }
 
     void LoadSingleOperatorExpression()
     {
-        for (auto entry : shorty) {
+        for (auto entry : shorty)
+        {
             espresso.AddSymbol(entry);
         }
     }
 
     Espresso espresso;
 
-    std::string shorty{
-        "ab+"
-    };
+    std::string shorty{"ab+"};
 
-    std::string wikieqn{
-        "ab+cde+**"
-    };
+    std::string wikieqn{"ab+cde+**"};
 };
 
 //! \test   EmptyTreeShouldReturnEmpty
-TEST_F(EspressoTest, EmptyTreeShouldReturnEmpty) {
+TEST_F(EspressoTest, EmptyTreeShouldReturnEmpty)
+{
     EXPECT_TRUE(espresso.IsEmpty());
 }
 
 //! \test   SingleOperatorEquationShouldMatchExpected
-TEST_F(EspressoTest, SingleOperatorEquationShouldMatchExpected) {
+TEST_F(EspressoTest, SingleOperatorEquationShouldMatchExpected)
+{
     LoadSingleOperatorExpression();
     EXPECT_FALSE(espresso.IsEmpty());
 
-    std::vector<char> compare{
-        'a', 'b', '+'
-    };
+    std::vector<char> compare{'a', 'b', '+'};
 
     espresso.TraversePostorder();
     std::vector<char> expression = espresso.GetTree();
@@ -61,13 +59,12 @@ TEST_F(EspressoTest, SingleOperatorEquationShouldMatchExpected) {
 }
 
 //! \test   MultiOperatorExpressionShouldMatchExpected
-TEST_F(EspressoTest, MultiOperatorExpressionShouldMatchExpected) {
+TEST_F(EspressoTest, MultiOperatorExpressionShouldMatchExpected)
+{
     LoadMultiOperatorExpression();
     EXPECT_FALSE(espresso.IsEmpty());
 
-    std::vector<char> compare{
-        'a', 'b', '+', 'c', 'd', 'e', '+', '*', '*'
-    };
+    std::vector<char> compare{'a', 'b', '+', 'c', 'd', 'e', '+', '*', '*'};
 
     espresso.TraversePostorder();
     std::vector<char> expression = espresso.GetTree();

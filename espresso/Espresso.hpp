@@ -8,17 +8,19 @@
 #include <stack>
 #include <vector>
 
-namespace {
+namespace
+{
 }
 
 //! /struct ExprNode
 struct ExprNode
 {
     ExprNode(char data)
-    : data(data)
-    , left(nullptr)
-    , right(nullptr)
-    {}
+        : data(data)
+        , left(nullptr)
+        , right(nullptr)
+    {
+    }
 
     ~ExprNode()
     {
@@ -35,17 +37,20 @@ struct ExprNode
 class Espresso
 {
 public:
-    Espresso() = default;
+    Espresso()  = default;
     ~Espresso() = default;
 
     //! \fn     AddSymbol
     void AddSymbol(char c)
     {
-        if (!IsOperator(c)) {
-            ExprNode* operand = new ExprNode(c);
+        if (!IsOperator(c))
+        {
+            auto operand = new ExprNode(c);
             m_expr_stack.push(operand);
-        } else {
-            ExprNode* operatory = new ExprNode(c);
+        }
+        else
+        {
+            auto operatory = new ExprNode(c);
 
             operatory->right = m_expr_stack.top();
             m_expr_stack.pop();
@@ -71,7 +76,8 @@ public:
     //! \fn     TraversePostorder
     void TraversePostorder()
     {
-        if (!IsEmpty()) {
+        if (!IsEmpty())
+        {
             DoTraversePostorder(m_expr_stack.top());
         }
     }
@@ -79,7 +85,8 @@ public:
     //! \fn     TraversePreorder
     void TraversePreorder()
     {
-        if (!IsEmpty()) {
+        if (!IsEmpty())
+        {
             DoTraversePreorder(m_expr_stack.top());
         }
     }
@@ -87,11 +94,13 @@ public:
 private:
     void DoTraversePostorder(ExprNode* root)
     {
-        if (root == nullptr) {
+        if (root == nullptr)
+        {
             return;
         }
 
-        if (root == m_expr_stack.top()) {
+        if (root == m_expr_stack.top())
+        {
             m_tree.clear();
         }
 
@@ -102,11 +111,13 @@ private:
 
     void DoTraversePreorder(ExprNode* root)
     {
-        if (root == nullptr) {
+        if (root == nullptr)
+        {
             return;
         }
 
-        if (root == m_expr_stack.top()) {
+        if (root == m_expr_stack.top())
+        {
             m_tree.clear();
         }
 
@@ -120,7 +131,8 @@ private:
         m_tree.push_back(node->data);
     }
 
-    bool IsOperator(char c) {
+    bool IsOperator(char c)
+    {
         auto isop = m_operators.find(c);
         return (isop != m_operators.end());
     }
@@ -131,5 +143,4 @@ private:
     mutable std::vector<char> m_tree;
 };
 
-
-#endif //ESPRESSO_ESPRESSO_HPP
+#endif // ESPRESSO_ESPRESSO_HPP

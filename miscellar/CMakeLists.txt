@@ -1,10 +1,11 @@
-cmake_minimum_required(VERSION 3.6)
+cmake_minimum_required(VERSION 3.5)
 project(miscellar)
 
 find_library(GTest required)
 include_directories(${GTEST_INCLUDE_DIRS})
 
 set(CMAKE_CXX_STANDARD 14)
+set(CMAKE_EXPORT_COMPILE_COMMANDS 1)
 set(CMAKE_CXX_FLAGS "-Wno-write-strings")
 set(SOURCE_FILES main.cpp)
 add_executable(miscellar ${SOURCE_FILES})

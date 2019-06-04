@@ -3,6 +3,4 @@
 \*---------------------------------------------------------------------------*/
 #include "Espresso.hpp"
 
-std::set<char> Espresso::m_operators{
-    '*', '/', '+', '-', '^'
-};
+std::set<char> Espresso::m_operators{'*', '/', '+', '-', '^'};

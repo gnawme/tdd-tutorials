@@ -3,8 +3,8 @@
 \*---------------------------------------------------------------------------*/
 #include "Beastie.hpp"
 
-#include <gmock/gmock.h>
 #include <algorithm>
+#include <gmock/gmock.h>
 #include <iostream>
 #include <vector>
 
@@ -12,16 +12,18 @@
 //! \brief  Generates Fibonacci numbers for test data
 int Fibo(int num)
 {
-    if (num < 2) {
+    if (num < 2)
+    {
         return num;
     }
 
     int fiboMinus1 = 1;
     int fiboMinus2 = 0;
-    int fibo = 0;
+    int fibo       = 0;
 
-    for (int i = 2; i <= num; ++i) {
-        fibo = fiboMinus1 + fiboMinus2;
+    for (int i = 2; i <= num; ++i)
+    {
+        fibo       = fiboMinus1 + fiboMinus2;
         fiboMinus2 = fiboMinus1;
         fiboMinus1 = fibo;
     }
@@ -30,12 +32,13 @@ int Fibo(int num)
 }
 
 //! \class  BeastieTest
-class BeastieTest: public ::testing::Test
+class BeastieTest : public ::testing::Test
 {
 public:
-    virtual void SetUp()
+    void SetUp() override
     {
-        for (int i = 0; i < 15; ++i) {
+        for (int i = 0; i < 15; ++i)
+        {
             fibos.push_back(Fibo(i));
         }
 
@@ -45,31 +48,36 @@ public:
     Beastie<int> beastie;
     std::vector<int> fibos;
     std::vector<int> simple{7, 1, 0, 3, 2, 5, 4, 6, 9, 8, 10};
-
 };
 
 //! \test   EmptyTreeShouldReturnEmpty
-TEST_F(BeastieTest, EmptyTreeShouldReturnEmpty) {
+TEST_F(BeastieTest, EmptyTreeShouldReturnEmpty)
+{
     EXPECT_TRUE(beastie.IsEmpty());
 }
 
 //! \test   TreeShouldNotBeEmptyAfterInsertion
-TEST_F(BeastieTest, TreeShouldNotBeEmptyAfterInsertion) {
+TEST_F(BeastieTest, TreeShouldNotBeEmptyAfterInsertion)
+{
     beastie.Insert(55);
     EXPECT_FALSE(beastie.IsEmpty());
 }
 
 //! \test   TreeShouldNotBeEmptyAfterMultipleInsertions
-TEST_F(BeastieTest, TreeShouldNotBeEmptyAfterMultipleInsertions) {
-    for (auto key : fibos) {
+TEST_F(BeastieTest, TreeShouldNotBeEmptyAfterMultipleInsertions)
+{
+    for (auto key : fibos)
+    {
         beastie.Insert(key);
     }
     EXPECT_FALSE(beastie.IsEmpty());
 }
 
 //! \test   SimpleInorderTraversalShouldYieldExpected
-TEST_F(BeastieTest, SimpleInorderTraversalShouldYieldExpected) {
-    for (auto key : simple) {
+TEST_F(BeastieTest, SimpleInorderTraversalShouldYieldExpected)
+{
+    for (auto key : simple)
+    {
         beastie.Insert(key);
     }
 
@@ -81,8 +89,10 @@ TEST_F(BeastieTest, SimpleInorderTraversalShouldYieldExpected) {
 }
 
 //! \test   SimplePreorderTraversalShouldYieldExpected
-TEST_F(BeastieTest, SimplePreorderTraversalShouldYieldExpected) {
-    for (auto key : simple) {
+TEST_F(BeastieTest, SimplePreorderTraversalShouldYieldExpected)
+{
+    for (auto key : simple)
+    {
         beastie.Insert(key);
     }
 
@@ -94,8 +104,10 @@ TEST_F(BeastieTest, SimplePreorderTraversalShouldYieldExpected) {
 }
 
 //! \test   SimplePostorderTraversalShouldYieldExpected
-TEST_F(BeastieTest, SimplePostorderTraversalShouldYieldExpected) {
-    for (auto key : simple) {
+TEST_F(BeastieTest, SimplePostorderTraversalShouldYieldExpected)
+{
+    for (auto key : simple)
+    {
         beastie.Insert(key);
     }
 
@@ -107,8 +119,10 @@ TEST_F(BeastieTest, SimplePostorderTraversalShouldYieldExpected) {
 }
 
 //! \test   TreeShouldBeEmptyAfterClear
-TEST_F(BeastieTest, TreeShouldBeEmptyAfterClear) {
-    for (auto key : simple) {
+TEST_F(BeastieTest, TreeShouldBeEmptyAfterClear)
+{
+    for (auto key : simple)
+    {
         beastie.Insert(key);
     }
 
@@ -117,8 +131,10 @@ TEST_F(BeastieTest, TreeShouldBeEmptyAfterClear) {
 }
 
 //! \test   SearchForValueInTreeShouldReturnNode
-TEST_F(BeastieTest, SearchForValueInTreeShouldReturnNode) {
-    for (auto key : fibos) {
+TEST_F(BeastieTest, SearchForValueInTreeShouldReturnNode)
+{
+    for (auto key : fibos)
+    {
         beastie.Insert(key);
     }
 
@@ -127,8 +143,10 @@ TEST_F(BeastieTest, SearchForValueInTreeShouldReturnNode) {
 }
 
 //! \test   SearchForValueNotInTreeShouldReturnNull
-TEST_F(BeastieTest, SearchForValueNotInTreeShouldReturnNull) {
-    for (auto key : fibos) {
+TEST_F(BeastieTest, SearchForValueNotInTreeShouldReturnNull)
+{
+    for (auto key : fibos)
+    {
         beastie.Insert(key);
     }
 
@@ -137,8 +155,10 @@ TEST_F(BeastieTest, SearchForValueNotInTreeShouldReturnNull) {
 }
 
 //! \test   DepthOfTreeShouldBeGreaterThanOne
-TEST_F(BeastieTest, DepthOfTreeShouldBeGreaterThanOne) {
-    for (auto key : simple) {
+TEST_F(BeastieTest, DepthOfTreeShouldBeGreaterThanOne)
+{
+    for (auto key : simple)
+    {
         beastie.Insert(key);
     }
 
@@ -148,7 +168,8 @@ TEST_F(BeastieTest, DepthOfTreeShouldBeGreaterThanOne) {
 }
 
 //! \test   InorderTraversalShouldBeSameAsSorted
-TEST_F(BeastieTest, InorderTraversalShouldBeSameAsSorted) {
+TEST_F(BeastieTest, InorderTraversalShouldBeSameAsSorted)
+{
     beastie.TraverseInorder(beastie.GetRoot());
     std::vector<int> compare = beastie.GetTree();
     std::vector<int> sorted{compare.begin(), compare.end()};
@@ -158,13 +179,16 @@ TEST_F(BeastieTest, InorderTraversalShouldBeSameAsSorted) {
 }
 
 //! \test   NumberOfPathsInEmptyListShouldBeZero
-TEST_F(BeastieTest, NumberOfPathsInEmptyListShouldBeZero) {
+TEST_F(BeastieTest, NumberOfPathsInEmptyListShouldBeZero)
+{
     EXPECT_EQ(0, beastie.NumPaths());
 }
 
 //! \test   NumberOfPathsInSimpleTreeShouldBeGreaterThanZero
-TEST_F(BeastieTest, NumberOfPathsInSimpleTreeShouldBeGreaterThanZero) {
-    for (auto key : simple) {
+TEST_F(BeastieTest, NumberOfPathsInSimpleTreeShouldBeGreaterThanZero)
+{
+    for (auto key : simple)
+    {
         beastie.Insert(key);
     }
 
@@ -173,8 +197,10 @@ TEST_F(BeastieTest, NumberOfPathsInSimpleTreeShouldBeGreaterThanZero) {
 }
 
 //! \test   CopyConstructorShouldReturnIdenticalTree
-TEST_F(BeastieTest, CopyConstructorShouldReturnIdenticalTree) {
-    for (auto key : simple) {
+TEST_F(BeastieTest, CopyConstructorShouldReturnIdenticalTree)
+{
+    for (auto key : simple)
+    {
         beastie.Insert(key);
     }
 
@@ -188,8 +214,10 @@ TEST_F(BeastieTest, CopyConstructorShouldReturnIdenticalTree) {
 }
 
 //! \test   AssignmentOperatorShouldReturnIdenticalTree
-TEST_F(BeastieTest, AssignmentOperatorShouldReturnIdenticalTree) {
-    for (auto key : fibos) {
+TEST_F(BeastieTest, AssignmentOperatorShouldReturnIdenticalTree)
+{
+    for (auto key : fibos)
+    {
         beastie.Insert(key);
     }
 
@@ -203,8 +231,10 @@ TEST_F(BeastieTest, AssignmentOperatorShouldReturnIdenticalTree) {
 }
 
 //! \test   MoveConstructorShouldReturnIdenticalTree
-TEST_F(BeastieTest, MoveConstructorShouldReturnIdenticalTree) {
-    for (auto key : fibos) {
+TEST_F(BeastieTest, MoveConstructorShouldReturnIdenticalTree)
+{
+    for (auto key : fibos)
+    {
         beastie.Insert(key);
     }
 
@@ -218,8 +248,10 @@ TEST_F(BeastieTest, MoveConstructorShouldReturnIdenticalTree) {
 }
 
 //! \test   MoveAssignmentOperatorShouldReturnIdenticalTree
-TEST_F(BeastieTest, MoveAssignmentOperatorShouldReturnIdenticalTree) {
-    for (auto key : fibos) {
+TEST_F(BeastieTest, MoveAssignmentOperatorShouldReturnIdenticalTree)
+{
+    for (auto key : fibos)
+    {
         beastie.Insert(key);
     }
 
@@ -230,11 +262,11 @@ TEST_F(BeastieTest, MoveAssignmentOperatorShouldReturnIdenticalTree) {
     bestie.TraversePreorder(bestie.GetRoot());
 
     EXPECT_THAT(compare, ::testing::ContainerEq(bestie.GetTree()));
-
 }
 
 //! \fn     main
-int main(int argc, char** argv) {
+int main(int argc, char** argv)
+{
     testing::InitGoogleTest(&argc, argv);
     return RUN_ALL_TESTS();
 }

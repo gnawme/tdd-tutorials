@@ -18,9 +18,9 @@ inline int RandomStart(int minval, int maxval)
 //! \fn     main
 int main()
 {
-    std::srand(std::time(0));
+    std::srand(std::time(nullptr));
 
-    RBMaze maze(8, 8 );
+    RBMaze maze(8, 8);
 
     auto cx = RandomStart(0, 8);
     auto cy = RandomStart(0, 8);

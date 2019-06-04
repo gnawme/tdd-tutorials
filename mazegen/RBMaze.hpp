@@ -20,8 +20,8 @@ class RBMaze
 public:
     //! \fn     RBMaze
     RBMaze(int xdim, int ydim)
-    : m_xdim(xdim)
-    , m_ydim(ydim)
+        : m_xdim(xdim)
+        , m_ydim(ydim)
     {
         std::vector<int> rows(ydim, 0);
         std::vector<std::vector<int>> maze(xdim, rows);
@@ -52,8 +52,7 @@ private:
     int m_xdim;
     int m_ydim;
     std::vector<std::vector<int>> m_maze;
-    std::vector<MazeDirs> m_dirs{e_N, e_S,e_E, e_W};
+    std::vector<MazeDirs> m_dirs{e_N, e_S, e_E, e_W};
 };
 
-
-#endif //MAZEGEN_RBMAZE_HPP
+#endif // MAZEGEN_RBMAZE_HPP

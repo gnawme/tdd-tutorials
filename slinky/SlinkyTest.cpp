@@ -1,94 +1,99 @@
 #include "Slinky.hpp"
 
-#include <gmock/gmock.h>
 #include <array>
+#include <gmock/gmock.h>
 #include <string>
 #include <vector>
 
 using TStringVec = std::vector<std::string>;
 
 //! \class  SlinkyTest
-class SlinkyTest: public ::testing::Test
+class SlinkyTest : public ::testing::Test
 {
 public:
-    virtual void SetUp()
+    void SetUp() override
     {
         slinky.Clear();
     }
 
     void InsertNATO(int count)
     {
-        for (auto i = 0; i < count; ++i) {
+        for (auto i = 0; i < count; ++i)
+        {
             slinky.Append(natos[i]);
         }
     }
 
     std::array<std::string, 26> natos{
-        {
-            "alfa", "bravo", "charlie", "delta", "echo", "foxtrot",
-            "golf", "hotel", "india", "juliett", "kilo", "lima",
-            "mike", "november", "oscar", "papa", "quebec", "romeo",
-            "sierra", "tango", "uniform", "victor", "whiskey", "x-ray",
-            "yankee", "zulu"
-        }
-    };
+        {"alfa",   "bravo",   "charlie", "delta",  "echo",   "foxtrot", "golf",
+         "hotel",  "india",   "juliett", "kilo",   "lima",   "mike",    "november",
+         "oscar",  "papa",    "quebec",  "romeo",  "sierra", "tango",   "uniform",
+         "victor", "whiskey", "x-ray",   "yankee", "zulu"}};
 
-    Slinky<std::string>     slinky;
-    ListNode<std::string>*  current_node;
+    Slinky<std::string> slinky;
+    ListNode<std::string>* current_node;
 };
 
 //! \test   EmptyListShouldReturnEmpty
-TEST_F(SlinkyTest, EmptyListShouldReturnEmpty) {
+TEST_F(SlinkyTest, EmptyListShouldReturnEmpty)
+{
     EXPECT_TRUE(slinky.IsEmpty());
 }
 
 //! \test   EmptyListShouldReturnSizeZero
-TEST_F(SlinkyTest, EmptyListShouldReturnSizeZero) {
+TEST_F(SlinkyTest, EmptyListShouldReturnSizeZero)
+{
     EXPECT_EQ(slinky.Size(), 0);
 }
 
 //! \test   InsertionShouldReturnSizeOne
-TEST_F(SlinkyTest, InsertionShouldReturnSizeOne) {
+TEST_F(SlinkyTest, InsertionShouldReturnSizeOne)
+{
     current_node = slinky.Insert(new ListNode<std::string>(natos[0]));
     EXPECT_EQ(slinky.Size(), 1);
 }
 
 //! \test   InsertionShouldReturnSameNode
-TEST_F(SlinkyTest, InsertionShouldReturnSameNode) {
-    current_node = slinky.Insert(new ListNode<std::string>(natos[0]));
+TEST_F(SlinkyTest, InsertionShouldReturnSameNode)
+{
+    current_node                    = slinky.Insert(new ListNode<std::string>(natos[0]));
     ListNode<std::string>* new_node = new ListNode<std::string>(natos[1]);
-    current_node = slinky.Insert(current_node, new_node);
+    current_node                    = slinky.Insert(current_node, new_node);
     EXPECT_EQ(current_node, new_node);
 }
 
 //! \test   DeletionShouldDecrementCount
-TEST_F(SlinkyTest, DeletionShouldDecrementCount) {
+TEST_F(SlinkyTest, DeletionShouldDecrementCount)
+{
     ListNode<std::string>* last_node = new ListNode<std::string>(natos[0]);
-    current_node = slinky.Insert(last_node);
+    current_node                     = slinky.Insert(last_node);
     current_node = slinky.Insert(last_node, new ListNode<std::string>(natos[1]));
 
     auto last_size = slinky.Size();
-    current_node = slinky.Delete(last_node);
+    current_node   = slinky.Delete(last_node);
     EXPECT_LT(slinky.Size(), last_size);
 }
 
 //! \test   DeletionFromHeadShouldDecrementCount
-TEST_F(SlinkyTest, DeletionFromHeadShouldDecrementCount) {
+TEST_F(SlinkyTest, DeletionFromHeadShouldDecrementCount)
+{
     InsertNATO(2);
 
     auto last_size = slinky.Size();
-    current_node = slinky.Delete();
+    current_node   = slinky.Delete();
     EXPECT_LT(slinky.Size(), last_size);
 }
 
 //! \test   ClearingListShouldReturnEmpty
-TEST_F(SlinkyTest, ClearingListShouldReturnEmpty) {
+TEST_F(SlinkyTest, ClearingListShouldReturnEmpty)
+{
     slinky.Clear();
     EXPECT_TRUE(slinky.IsEmpty());
 }
 
 //! \test   ListContentsShouldBeAlfaBravoCharlie
-TEST_F(SlinkyTest, ListContentsShouldBeAlfaBravoCharlie) {
+TEST_F(SlinkyTest, ListContentsShouldBeAlfaBravoCharlie)
+{
     InsertNATO(3);
 
     TStringVec expected{natos[0], natos[1], natos[2]};
@@ -97,7 +102,8 @@ TEST_F(SlinkyTest, ListContentsShouldBeAlfaBravoCharlie) {
 }
 
 //! \test   ListContentsAfterReversalShouldBeCharlieBravoAlfa
-TEST_F(SlinkyTest, ListContentsAfterReversalShouldBeCharlieBravoAlfa) {
+TEST_F(SlinkyTest, ListContentsAfterReversalShouldBeCharlieBravoAlfa)
+{
     InsertNATO(3);
 
     TStringVec expected{natos[2], natos[1], natos[0]};
@@ -107,7 +113,8 @@ TEST_F(SlinkyTest, ListContentsAfterReversalShouldBeCharlieBravoAlfa) {
 }
 
 //! \test   ListContentsAfterRecursiveReversalShouldBeCharlieBravoAlfa
-TEST_F(SlinkyTest, ListContentsAfterRecursiveReversalShouldBeCharlieBravoAlfa) {
+TEST_F(SlinkyTest, ListContentsAfterRecursiveReversalShouldBeCharlieBravoAlfa)
+{
     InsertNATO(3);
 
     TStringVec expected{natos[2], natos[1], natos[0]};
@@ -117,7 +124,8 @@ TEST_F(SlinkyTest, ListContentsAfterRecursiveReversalShouldBeCharlieBravoAlfa) {
 }
 
 //! \test   GetFromIndex1ShouldReturnBravo
-TEST_F(SlinkyTest, GetFromIndex1ShouldReturnBravo) {
+TEST_F(SlinkyTest, GetFromIndex1ShouldReturnBravo)
+{
     InsertNATO(3);
 
     std::string gotten = slinky.Get(1);
@@ -125,7 +133,8 @@ TEST_F(SlinkyTest, GetFromIndex1ShouldReturnBravo) {
 }
 
 //! \test   ListContentsAfterAppendShouldBeAlfaBravoAlfa
-TEST_F(SlinkyTest, ListContentsAfterAppendShouldBeAlfaBravoAlfa) {
+TEST_F(SlinkyTest, ListContentsAfterAppendShouldBeAlfaBravoAlfa)
+{
     InsertNATO(2);
 
     TStringVec expected{natos[0], natos[1], natos[0]};
@@ -136,7 +145,8 @@ TEST_F(SlinkyTest, ListContentsAfterAppendShouldBeAlfaBravoAlfa) {
 }
 
 //! \test   ListSizeShouldIncreaseAfterAppend
-TEST_F(SlinkyTest, ListSizeShouldIncreaseAfterAppend) {
+TEST_F(SlinkyTest, ListSizeShouldIncreaseAfterAppend)
+{
     InsertNATO(2);
     auto size2 = slinky.Size();
 
@@ -147,7 +157,8 @@ TEST_F(SlinkyTest, ListSizeShouldIncreaseAfterAppend) {
 }
 
 //! \test   ListSizeShouldIncreaseAfterPrepend
-TEST_F(SlinkyTest, ListSizeShouldIncreaseAfterPrepend) {
+TEST_F(SlinkyTest, ListSizeShouldIncreaseAfterPrepend)
+{
     auto size0 = slinky.Size();
 
     slinky.Prepend(natos[1]);
@@ -156,7 +167,8 @@ TEST_F(SlinkyTest, ListSizeShouldIncreaseAfterPrepend) {
 }
 
 //! \test   ListContentsAfterPrependShouldBeCharlieBravoAlfa
-TEST_F(SlinkyTest, ListContentsAfterPrependShouldBeCharlieBravoAlfa) {
+TEST_F(SlinkyTest, ListContentsAfterPrependShouldBeCharlieBravoAlfa)
+{
     slinky.Prepend(natos[0]);
     slinky.Prepend(natos[1]);
     slinky.Prepend(natos[2]);
@@ -167,21 +179,24 @@ TEST_F(SlinkyTest, ListContentsAfterPrependShouldBeCharlieBravoAlfa) {
 }
 
 //! \test   FirstShouldReturnAlfa
-TEST_F(SlinkyTest, FirstShouldReturnAlfa) {
+TEST_F(SlinkyTest, FirstShouldReturnAlfa)
+{
     InsertNATO(5);
 
     EXPECT_EQ(natos[0], slinky.First());
 }
 
 //! \test   LastShouldReturnFoxtrot
-TEST_F(SlinkyTest, LastShouldReturnFoxtrot) {
+TEST_F(SlinkyTest, LastShouldReturnFoxtrot)
+{
     InsertNATO(5);
 
     EXPECT_EQ(natos[4], slinky.Last());
 }
 
 //! \test   RemoveShouldReturnAlfaCharlie
-TEST_F(SlinkyTest, RemoveShouldReturnAlfaCharlie) {
+TEST_F(SlinkyTest, RemoveShouldReturnAlfaCharlie)
+{
     InsertNATO(3);
     slinky.Remove(natos[1]);
 
@@ -191,7 +206,8 @@ TEST_F(SlinkyTest, RemoveShouldReturnAlfaCharlie) {
 }
 
 //! \test   RemoveFirstShouldReturnBravoCharlie
-TEST_F(SlinkyTest, RemoveFirstShouldReturnBravoCharlie) {
+TEST_F(SlinkyTest, RemoveFirstShouldReturnBravoCharlie)
+{
     InsertNATO(3);
     slinky.RemoveFirst();
 
@@ -201,7 +217,8 @@ TEST_F(SlinkyTest, RemoveFirstShouldReturnBravoCharlie) {
 }
 
 //! \test   RemoveLastShouldReturnCharlieBravo
-TEST_F(SlinkyTest, RemoveLastShouldReturnCharlieBravo) {
+TEST_F(SlinkyTest, RemoveLastShouldReturnCharlieBravo)
+{
     slinky.Prepend(natos[0]);
     slinky.Prepend(natos[1]);
     slinky.Prepend(natos[2]);
@@ -213,13 +230,15 @@ TEST_F(SlinkyTest, RemoveLastShouldReturnCharlieBravo) {
 }
 
 //! \test   GetAndRemoveFirstShouldCopyTheList
-TEST_F(SlinkyTest, GetAndRemoveFirstShouldCopyTheList) {
+TEST_F(SlinkyTest, GetAndRemoveFirstShouldCopyTheList)
+{
     InsertNATO(5);
     TStringVec abcde = slinky.PrintList();
 
     TStringVec contents;
     auto fullsize = slinky.Size();
-    for (auto i = 0; i < fullsize; ++i) {
+    for (auto i = 0; i < fullsize; ++i)
+    {
         contents.push_back(slinky.First());
         slinky.RemoveFirst();
     }
@@ -228,7 +247,8 @@ TEST_F(SlinkyTest, GetAndRemoveFirstShouldCopyTheList) {
 }
 
 //! \test   CopyConstructorShouldReturnIdenticalList
-TEST_F(SlinkyTest, CopyConstructorShouldReturnIdenticalList) {
+TEST_F(SlinkyTest, CopyConstructorShouldReturnIdenticalList)
+{
     InsertNATO(5);
     TStringVec original = slinky.PrintList();
 
@@ -239,23 +259,26 @@ TEST_F(SlinkyTest, CopyConstructorShouldReturnIdenticalList) {
 }
 
 //! \test   AssignmentOperatorShouldReturnIdenticalList
-TEST_F(SlinkyTest, AssignmentOperatorShouldReturnIdenticalList) {
+TEST_F(SlinkyTest, AssignmentOperatorShouldReturnIdenticalList)
+{
     InsertNATO(5);
     TStringVec original = slinky.PrintList();
 
     Slinky<std::string> clone;
-    for (auto i = 0; i < 3; ++i) {
+    for (auto i = 0; i < 3; ++i)
+    {
         clone.Append(natos[i]);
     }
 
-    clone = slinky;
+    clone                = slinky;
     TStringVec clonewars = clone.PrintList();
 
     EXPECT_THAT(original, ::testing::Eq(clonewars));
 }
 
 //! \test   MoveConstructorShouldReturnIdenticalList
-TEST_F(SlinkyTest, MoveConstructorShouldReturnIdenticalList) {
+TEST_F(SlinkyTest, MoveConstructorShouldReturnIdenticalList)
+{
     InsertNATO(5);
     TStringVec original = slinky.PrintList();
 
@@ -266,23 +289,26 @@ TEST_F(SlinkyTest, MoveConstructorShouldReturnIdenticalList) {
 }
 
 //! \test   MoveAssignmentOperatorShouldReturnIdenticalList
-TEST_F(SlinkyTest, MoveAssignmentOperatorShouldReturnIdenticalList) {
+TEST_F(SlinkyTest, MoveAssignmentOperatorShouldReturnIdenticalList)
+{
     InsertNATO(5);
     TStringVec original = slinky.PrintList();
 
     Slinky<std::string> clone;
-    for (auto i = 0; i < 3; ++i) {
+    for (auto i = 0; i < 3; ++i)
+    {
         clone.Append(natos[i]);
     }
 
-    clone = std::move(slinky);
+    clone                = std::move(slinky);
     TStringVec clonewars = clone.PrintList();
 
     EXPECT_THAT(original, ::testing::Eq(clonewars));
 }
 
 //! \test   RemoveAllShouldLeaveEmptyList
-TEST_F(SlinkyTest, RemoveAllShouldLeaveEmptyList) {
+TEST_F(SlinkyTest, RemoveAllShouldLeaveEmptyList)
+{
     InsertNATO(5);
     slinky.RemoveAll();
 
@@ -290,7 +316,8 @@ TEST_F(SlinkyTest, RemoveAllShouldLeaveEmptyList) {
 }
 
 //! \test   SearchForEchoShouldReturnEcho
-TEST_F(SlinkyTest, SearchForEchoShouldReturnEcho) {
+TEST_F(SlinkyTest, SearchForEchoShouldReturnEcho)
+{
     InsertNATO(8);
     ListNode<std::string>* echo = slinky.Search(std::string("echo"));
 
