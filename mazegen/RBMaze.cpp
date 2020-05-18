@@ -6,122 +6,102 @@
 
 #include <algorithm>
 #include <iostream>
+#include <random>
+
 
 //! \fn     CheckInRange
-bool CheckInRange(int number, int lower, int upper)
-{
+bool CheckInRange(int number, int lower, int upper) {
     return (static_cast<unsigned int>(number - lower) <= (upper - lower));
 }
 
 //! \fn     DirY
-int DirX(MazeDirs dir)
-{
-    switch (dir)
-    {
-    case MazeDirs::e_E:
+int DirX(MazeDir dir) {
+    switch (dir) {
+    case MazeDir::MD_E:
         return 1;
         break;
-    case MazeDirs::e_W:
+    case MazeDir::MD_W:
         return -1;
         break;
-    case MazeDirs::e_N:
-    case MazeDirs::e_S:
+    case MazeDir::MD_N:
+    case MazeDir::MD_S:
         return 0;
         break;
     }
 }
 
 //! \fn     DirY
-int DirY(MazeDirs dir)
-{
-    switch (dir)
-    {
-    case MazeDirs::e_N:
+int DirY(MazeDir dir) {
+    switch (dir) {
+    case MazeDir::MD_N:
         return -1;
         break;
-    case MazeDirs::e_S:
+    case MazeDir::MD_S:
         return 1;
         break;
-    case MazeDirs::e_E:
-    case MazeDirs::e_W:
+    case MazeDir::MD_E:
+    case MazeDir::MD_W:
         return 0;
         break;
     }
 }
 
 //! \fn     Opposite
-MazeDirs Opposite(MazeDirs dir)
-{
-    switch (dir)
-    {
-    case MazeDirs::e_N:
-        return MazeDirs::e_S;
+MazeDir Opposite(MazeDir dir) {
+    switch (dir) {
+    case MazeDir::MD_N:
+        return MazeDir::MD_S;
         break;
-    case MazeDirs::e_S:
-        return MazeDirs::e_N;
+    case MazeDir::MD_S:
+        return MazeDir::MD_N;
         break;
-    case MazeDirs::e_E:
-        return MazeDirs::e_W;
+    case MazeDir::MD_E:
+        return MazeDir::MD_W;
         break;
-    case MazeDirs::e_W:
-        return MazeDirs::e_E;
+    case MazeDir::MD_W:
+        return MazeDir::MD_E;
         break;
     }
 }
 
 //! \fn     RBMaze::CarvePassagesFrom
-void RBMaze::CarvePassagesFrom(int cx, int cy)
-{
+void RBMaze::CarvePassagesFrom(int cx, int cy) {
     std::cout << "At " << cx << ", " << cy << std::endl;
-    std::random_shuffle(m_dirs.begin(), m_dirs.end());
+    std::shuffle(m_dirs.begin(), m_dirs.end(), std::mt19937(std::random_device()()));
 
-    for (auto dir : m_dirs)
-    {
+    for (auto dir : m_dirs) {
         auto nx = cx + DirX(dir);
         auto ny = cy + DirY(dir);
 
-        if (IsValid(nx, ny))
-        {
-            m_maze[cy][cx] |= dir;
-            m_maze[ny][nx] |= Opposite(dir);
+        if (IsValid(nx, ny)) {
+            m_maze[cy][cx] |= int(dir);
+            m_maze[ny][nx] |= int(Opposite(dir));
             CarvePassagesFrom(nx, ny);
         }
     }
 }
 
 //! \fn     RBMaze::IsValid
-bool RBMaze::IsValid(int nx, int ny)
-{
-    return (
-        CheckInRange(nx, 0, GetXDim() - 1) && CheckInRange(ny, 0, GetYDim() - 1) &&
-        (m_maze[ny][nx] == 0));
+bool RBMaze::IsValid(int nx, int ny) {
+    return (CheckInRange(nx, 0, GetXDim() - 1) && CheckInRange(ny, 0, GetYDim() - 1)
+            && (m_maze[ny][nx] == 0));
 }
 
 //! \fn     RBMaze::PrintMaze
-void RBMaze::PrintMaze() const
-{
-    for (auto j = 0; j < GetYDim() - 1; ++j)
-    {
+void RBMaze::PrintMaze() const {
+    for (auto j = 0; j < GetYDim() - 1; ++j) {
         std::cout << "|";
-        for (auto i = 0; i < GetXDim() - 1; ++i)
-        {
-            if (m_maze[j][i] & MazeDirs::e_S != 0)
-            {
+        for (auto i = 0; i < GetXDim() - 1; ++i) {
+            if (m_maze[j][i] & int(MazeDir::MD_S) != 0) {
                 std::cout << " ";
-            }
-            else
-            {
+            } else {
                 std::cout << "_";
             }
 
-            if (m_maze[j][i] & MazeDirs::e_E != 0)
-            {
-                if ((m_maze[j][i] | m_maze[j][i + 1]) & MazeDirs::e_S != 0)
-                {
+            if (m_maze[j][i] & int(MazeDir::MD_E) != 0) {
+                if ((m_maze[j][i] | m_maze[j][i + 1]) & int(MazeDir::MD_S) != 0) {
                     std::cout << " ";
-                }
-                else
-                {
+                } else {
                     std::cout << "|";
                 }
             }
