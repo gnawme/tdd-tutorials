@@ -1,6 +1,6 @@
 /*! -------------------------------------------------------------------------*\
 |   Postfix expression tree
 \*---------------------------------------------------------------------------*/
-#include "Espresso.hpp"
+#include "Espresso.h"
 
-std::set<char> Espresso::m_operators{'*', '/', '+', '-', '^'};
+std::set<char> Espresso::_operators{'*', '/', '+', '-', '^'};

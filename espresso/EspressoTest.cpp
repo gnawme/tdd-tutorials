@@ -1,34 +1,27 @@
 /*! -------------------------------------------------------------------------*\
 |   Postfix expression tree
 \*---------------------------------------------------------------------------*/
-#include "Espresso.hpp"
+#include "Espresso.h"
 
 #include <gmock/gmock.h>
 #include <iostream>
 #include <string>
 #include <vector>
 
-//! \class  GraphisTest
-class EspressoTest : public ::testing::Test
-{
+/// \class  GraphisTest
+class EspressoTest : public ::testing::Test {
 public:
-    void SetUp() override
-    {
-    }
+    void SetUp() override {}
 
-    void LoadMultiOperatorExpression()
-    {
-        for (auto entry : wikieqn)
-        {
-            espresso.AddSymbol(entry);
+    void LoadMultiOperatorExpression() {
+        for (auto entry : wikieqn) {
+            espresso.addSymbol(entry);
         }
     }
 
-    void LoadSingleOperatorExpression()
-    {
-        for (auto entry : shorty)
-        {
-            espresso.AddSymbol(entry);
+    void LoadSingleOperatorExpression() {
+        for (auto entry : shorty) {
+            espresso.addSymbol(entry);
         }
     }
 
@@ -39,41 +32,37 @@ public:
     std::string wikieqn{"ab+cde+**"};
 };
 
-//! \test   EmptyTreeShouldReturnEmpty
-TEST_F(EspressoTest, EmptyTreeShouldReturnEmpty)
-{
-    EXPECT_TRUE(espresso.IsEmpty());
+/// \test   EmptyTreeShouldReturnEmpty
+TEST_F(EspressoTest, EmptyTreeShouldReturnEmpty) {
+    EXPECT_TRUE(espresso.isEmpty());
 }
 
-//! \test   SingleOperatorEquationShouldMatchExpected
-TEST_F(EspressoTest, SingleOperatorEquationShouldMatchExpected)
-{
+/// \test   SingleOperatorEquationShouldMatchExpected
+TEST_F(EspressoTest, SingleOperatorEquationShouldMatchExpected) {
     LoadSingleOperatorExpression();
-    EXPECT_FALSE(espresso.IsEmpty());
+    EXPECT_FALSE(espresso.isEmpty());
 
     std::vector<char> compare{'a', 'b', '+'};
 
-    espresso.TraversePostorder();
-    std::vector<char> expression = espresso.GetTree();
+    espresso.traversePostorder();
+    std::vector<char> expression = espresso.getTree();
     EXPECT_THAT(compare, ::testing::ContainerEq(expression));
 }
 
-//! \test   MultiOperatorExpressionShouldMatchExpected
-TEST_F(EspressoTest, MultiOperatorExpressionShouldMatchExpected)
-{
+/// \test   MultiOperatorExpressionShouldMatchExpected
+TEST_F(EspressoTest, MultiOperatorExpressionShouldMatchExpected) {
     LoadMultiOperatorExpression();
-    EXPECT_FALSE(espresso.IsEmpty());
+    EXPECT_FALSE(espresso.isEmpty());
 
     std::vector<char> compare{'a', 'b', '+', 'c', 'd', 'e', '+', '*', '*'};
 
-    espresso.TraversePostorder();
-    std::vector<char> expression = espresso.GetTree();
+    espresso.traversePostorder();
+    std::vector<char> expression = espresso.getTree();
     EXPECT_THAT(compare, ::testing::ContainerEq(expression));
 }
 
-//! \fn     main
-int main(int argc, char** argv)
-{
+///
+int main(int argc, char** argv) {
     testing::InitGoogleTest(&argc, argv);
     return RUN_ALL_TESTS();
 }
