@@ -3,16 +3,12 @@
 #include <gmock/gmock.h>
 #include <vector>
 
-//! \class  GraphisTest
-class GraphisTest : public ::testing::Test
-{
+/// \class  GraphisTest
+class GraphisTest : public ::testing::Test {
 public:
-    virtual void SetUp()
-    {
-    }
+    virtual void SetUp() {}
 
-    void LoadADM()
-    {
+    void LoadADM() {
         adm.AddEdge('A', 'B', 5);
         adm.AddEdge('B', 'C', 7);
         adm.AddEdge('B', 'D', 9);
@@ -27,8 +23,7 @@ public:
         adm.AddEdge('C', 'G', 5);
     }
 
-    void LoadDAG()
-    {
+    void LoadDAG() {
         dag.SetDirected(true);
         dag.AddEdge('A', 'C');
         dag.AddEdge('A', 'B');
@@ -42,8 +37,7 @@ public:
         dag.AddEdge('G', 'A');
     }
 
-    void LoadGeekGraph()
-    {
+    void LoadGeekGraph() {
         graph1.AddEdge(0, 1);
         graph1.AddEdge(0, 4);
         graph1.AddEdge(1, 2);
@@ -53,8 +47,7 @@ public:
         graph1.AddEdge(3, 4);
     }
 
-    void LoadSearchGraph()
-    {
+    void LoadSearchGraph() {
         graph2.SetDirected(true);
         graph2.AddEdge(0, 1);
         graph2.AddEdge(0, 2);
@@ -64,8 +57,7 @@ public:
         graph2.AddEdge(3, 3);
     }
 
-    void LoadRouteGraph()
-    {
+    void LoadRouteGraph() {
         allegiant.AddEdge("LAX", "BLI", 1047);
         allegiant.AddEdge("LAX", "BOI", 674);
         allegiant.AddEdge("LAX", "EUG", 748);
@@ -97,39 +89,34 @@ public:
     Graphis<char> adm;
 };
 
-//! \test   EmptyGraphShouldReturnEmpty
-TEST_F(GraphisTest, EmptyGraphShouldReturnEmpty)
-{
+/// \test   EmptyGraphShouldReturnEmpty
+TEST_F(GraphisTest, EmptyGraphShouldReturnEmpty) {
 
-    EXPECT_TRUE(graph1.IsEmpty());
+    EXPECT_TRUE(graph1.isEmpty());
 }
 
-//! \test   AddingFiveVerticesShouldReturnSizeFive
-TEST_F(GraphisTest, AddingFiveVerticesShouldReturnSizeFive)
-{
+/// \test   AddingFiveVerticesShouldReturnSizeFive
+TEST_F(GraphisTest, AddingFiveVerticesShouldReturnSizeFive) {
     LoadGeekGraph();
     EXPECT_EQ(graph1.GetNumVerts(), 5);
 }
 
-//! \test   VertexListShouldMatchExpectedSize
-TEST_F(GraphisTest, VertexListShouldMatchExpectedSize)
-{
+/// \test   VertexListShouldMatchExpectedSize
+TEST_F(GraphisTest, VertexListShouldMatchExpectedSize) {
     LoadGeekGraph();
 
     std::vector<int> verts = graph1.GetVertexList();
     EXPECT_EQ(verts.size(), graph1.GetNumVerts());
 }
 
-//! \test   NumberOfEdgesShouldEqualFourteen
-TEST_F(GraphisTest, NumberOfEdgesShouldEqualFourteen)
-{
+/// \test   NumberOfEdgesShouldEqualFourteen
+TEST_F(GraphisTest, NumberOfEdgesShouldEqualFourteen) {
     LoadGeekGraph();
     EXPECT_THAT(14, graph1.GetNumEdges());
 }
 
-//! \test   AdjacencyListsShouldMatchExpected
-TEST_F(GraphisTest, AdjacencyListsShouldMatchExpected)
-{
+/// \test   AdjacencyListsShouldMatchExpected
+TEST_F(GraphisTest, AdjacencyListsShouldMatchExpected) {
     LoadGeekGraph();
 
     std::vector<int> v0list{4, 1};
@@ -144,9 +131,8 @@ TEST_F(GraphisTest, AdjacencyListsShouldMatchExpected)
     EXPECT_THAT(v2list, ::testing::Eq(v2adj));
 }
 
-//! \test   BreadthFirstSearchShouldMatchExpected
-TEST_F(GraphisTest, BreadthFirstSearchShouldMatchExpected)
-{
+/// \test   BreadthFirstSearchShouldMatchExpected
+TEST_F(GraphisTest, BreadthFirstSearchShouldMatchExpected) {
     LoadSearchGraph();
 
     std::vector<int> v1bfs{1, 2, 3, 0};
@@ -158,9 +144,8 @@ TEST_F(GraphisTest, BreadthFirstSearchShouldMatchExpected)
     EXPECT_THAT(v3bfs, ::testing::Eq(v3bfs));
 }
 
-//! \test   FindPathShouldReturnExpected {
-TEST_F(GraphisTest, FindPathShouldReturnExpected)
-{
+/// \test   FindPathShouldReturnExpected {
+TEST_F(GraphisTest, FindPathShouldReturnExpected) {
     LoadRouteGraph();
     // Must perform BFS from start node to get meaningful results
     std::vector<std::string> bfsout = allegiant.BreadthFirstSearch("LAX");
@@ -170,8 +155,7 @@ TEST_F(GraphisTest, FindPathShouldReturnExpected)
     allegiant.FindPath("LAX", "LAS", path);
 
     std::vector<std::string> laxroute;
-    while (!path.empty())
-    {
+    while (!path.empty()) {
         laxroute.push_back(path.top());
         path.pop();
     }
@@ -179,23 +163,32 @@ TEST_F(GraphisTest, FindPathShouldReturnExpected)
     EXPECT_THAT(route, ::testing::Eq(laxroute));
 }
 
-//! \test   ConnectedComponentsShouldReturnExpected
-TEST_F(GraphisTest, ConnectedComponentsShouldReturnExpected)
-{
+/// \test   ConnectedComponentsShouldReturnExpected
+TEST_F(GraphisTest, ConnectedComponentsShouldReturnExpected) {
     LoadRouteGraph();
 
     ComponentList<std::string> connected = allegiant.ConnectedComponents();
 
     EXPECT_EQ(1, connected.size());
 
-    std::vector<std::string> conset{"AZA", "SCK", "STS", "PSC", "OAK", "LAS", "MFR",
-                                    "IDA", "FAT", "EUG", "BLI", "LAX", "RNO", "BOI"};
+    std::vector<std::string> conset{"AZA",
+                                    "SCK",
+                                    "STS",
+                                    "PSC",
+                                    "OAK",
+                                    "LAS",
+                                    "MFR",
+                                    "IDA",
+                                    "FAT",
+                                    "EUG",
+                                    "BLI",
+                                    "LAX",
+                                    "RNO",
+                                    "BOI"};
 
     std::vector<std::string> inset;
-    for (auto component : connected)
-    {
-        for (auto conlist : component.second)
-        {
+    for (auto component : connected) {
+        for (auto conlist : component.second) {
             inset.push_back(conlist);
         }
     }
@@ -203,9 +196,8 @@ TEST_F(GraphisTest, ConnectedComponentsShouldReturnExpected)
     EXPECT_THAT(conset, ::testing::Eq(inset));
 }
 
-//! \test   DepthFirstSearchShouldMatchExpected
-TEST_F(GraphisTest, DepthFirstSearchShouldMatchExpected)
-{
+/// \test   DepthFirstSearchShouldMatchExpected
+TEST_F(GraphisTest, DepthFirstSearchShouldMatchExpected) {
     LoadSearchGraph();
 
     std::vector<int> dfsout = graph2.DepthFirstSearch(2);
@@ -213,82 +205,70 @@ TEST_F(GraphisTest, DepthFirstSearchShouldMatchExpected)
     EXPECT_THAT(expected, ::testing::Eq(dfsout));
 }
 
-//! \fn     ProcessCycle
-template <typename DataT>
-void ProcessCycle(Graphis<DataT>& graph, DataT v1, DataT v2)
-{
+///
+template<typename DataT>
+void ProcessCycle(Graphis<DataT>& graph, DataT v1, DataT v2) {
     std::stack<DataT> path;
     graph.FindPath(v2, v1, path);
     graph.SetTerminationFlag(true);
 
     std::cout << "Cycle found between " << v1 << " and " << v2 << std::endl;
-    while (!path.empty())
-    {
+    while (!path.empty()) {
         std::cout << path.top() << " ";
         path.pop();
     }
     std::cout << std::endl;
 }
 
-//! \fn     FindCycle
-//! \brief  Implements ProcEdgeFn for Depth First Search when finding cycles
-template <typename DataT>
-void FindCycle(Graphis<DataT>& graph, DataT v1, DataT v2)
-{
-    if (v1 == v2)
-    {
+///
+/// \brief  Implements ProcEdgeFn for depth first search when finding cycles
+template<typename DataT>
+void FindCycle(Graphis<DataT>& graph, DataT v1, DataT v2) {
+    if (v1 == v2) {
         ProcessCycle(graph, v1, v2);
     }
 
     ParentList<DataT> parents = graph.GetParents();
-    auto parent_of            = parents.find(v1);
+    auto parent_of = parents.find(v1);
 
-    if (parent_of != parents.end())
-    {
-        if (parents.at(v1) != v2)
-        {
+    if (parent_of != parents.end()) {
+        if (parents.at(v1) != v2) {
             ProcessCycle(graph, v1, v2);
         }
     }
 }
 
-//! \test   FindingCycleInDFSShouldMatchExpected
-TEST_F(GraphisTest, FindingCycleInDFSShouldMatchExpected)
-{
+/// \test   FindingCycleInDFSShouldMatchExpected
+TEST_F(GraphisTest, FindingCycleInDFSShouldMatchExpected) {
     LoadSearchGraph();
 
     graph2.SetProcessEdgeFn(FindCycle);
     std::vector<int> verts = graph2.GetVertexList();
-    for (auto vert : verts)
-    {
+    for (auto vert : verts) {
         std::vector<int> dfsout = graph2.DepthFirstSearch(vert);
     }
 }
 
-//! \fn     ClassifyEdges
-//! \brief  Implements ProcEdgeFn for Depth First Search when performing topo sort
-template <typename DataT>
-void ClassifyEdges(Graphis<DataT>& graph, DataT v1, DataT v2)
-{
+///
+/// \brief  Implements ProcEdgeFn for depth first search when performing topo sort
+template<typename DataT>
+void ClassifyEdges(Graphis<DataT>& graph, DataT v1, DataT v2) {
     EdgeClassification eclass = graph.GetEdgeClassification(v1, v2);
 
-    if (eclass == e_back_edge)
-    {
+    if (eclass == EC_BACK_EDGE) {
         std::cerr << "WARNING: Directed cycle found, not a DAG" << std::endl;
     }
 }
 
-//! \fn     PushSorted
-//! \brief  Implements SetProcessVertexLate for DFS when performing topo sort
-template <typename DataT>
-void PushSorted(Graphis<DataT>& graph, DataT vertex)
-{
+///
+/// \brief  Implements SetProcessVertexLate for DFS when performing topo sort
+template<typename DataT>
+void PushSorted(Graphis<DataT>& graph, DataT vertex) {
     graph.PushSorted(vertex);
 }
 
-//! \test   TopoSortShouldMatchExpectedTopology
-TEST_F(GraphisTest, TopoSortShouldMatchExpectedTopology)
-{
+/// \test   TopoSortShouldMatchExpectedTopology
+TEST_F(GraphisTest, TopoSortShouldMatchExpectedTopology) {
     LoadDAG();
     std::vector<char> expected{'G', 'A', 'B', 'C', 'F', 'E', 'D'};
 
@@ -298,9 +278,8 @@ TEST_F(GraphisTest, TopoSortShouldMatchExpectedTopology)
     EXPECT_THAT(expected, ::testing::Eq(sorted));
 }
 
-//! \test   PrimSpanningTreeShouldYieldMinimum
-TEST_F(GraphisTest, PrimSpanningTreeShouldYieldMinimum)
-{
+/// \test   PrimSpanningTreeShouldYieldMinimum
+TEST_F(GraphisTest, PrimSpanningTreeShouldYieldMinimum) {
     LoadADM();
     std::vector<char> expected{'A', 'B', 'C', 'F', 'G', 'D', 'E'};
 
@@ -308,9 +287,8 @@ TEST_F(GraphisTest, PrimSpanningTreeShouldYieldMinimum)
     EXPECT_THAT(expected, ::testing::Eq(span));
 }
 
-//! \test   DjikstraShortestPathShouldYieldShortest
-TEST_F(GraphisTest, DjikstraShortestPathShouldYieldShortest)
-{
+/// \test   DjikstraShortestPathShouldYieldShortest
+TEST_F(GraphisTest, DjikstraShortestPathShouldYieldShortest) {
     LoadADM();
     std::vector<char> expected{'A', 'B', 'D', 'F', 'C', 'E', 'G'};
 
@@ -318,9 +296,8 @@ TEST_F(GraphisTest, DjikstraShortestPathShouldYieldShortest)
     EXPECT_THAT(expected, ::testing::Eq(span));
 }
 
-//! \fn     main
-int main(int argc, char** argv)
-{
+///
+int main(int argc, char** argv) {
     testing::InitGoogleTest(&argc, argv);
     return RUN_ALL_TESTS();
 }
