@@ -16,13 +16,13 @@ struct GoFListTest : public ::testing::Test {
 
     void AppendNATO(int count) {
         for (auto i = 0; i < count; ++i) {
-            goflist.Append(natos[i]);
+            goflist.append(natos[i]);
         }
     }
 
     void PrependNATO(int count) {
         for (auto i = 0; i < count; ++i) {
-            goflist.Prepend(natos[i]);
+            goflist.prepend(natos[i]);
         }
     }
 

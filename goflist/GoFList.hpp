@@ -2,7 +2,7 @@
 |   List from Design Patterns (Gang of Four) Foundation Classes
 \*---------------------------------------------------------------------------*/
 #pragma once
-#include "Slinky.hpp"
+#include "Slinky.h"
 
 #include <memory>
 
@@ -38,7 +38,7 @@ public:
     ///
     /// \brief  GoF Stack Interface; pushes onto stack
     void push(const DataT& data) {
-        Slinky<DataT>::Prepend(data);
+        Slinky<DataT>::prepend(data);
     }
 
 private:
